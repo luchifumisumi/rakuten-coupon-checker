@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楽天企画型クーポン チェッカー 2026 Q2</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif; background: #f0f0f0; color: #333; font-size: 13px; }
+
+/* ── Header ── */
+header { background: linear-gradient(135deg, #bf0000 0%, #8b0000 100%); color: white; padding: 10px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+header .logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+header h1 { font-size: 17px; font-weight: bold; }
+header .sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+
+/* ── Layout ── */
+.layout { display: flex; height: calc(100vh - 50px); overflow: hidden; }
+
+/* ── Sidebar ── */
+.sidebar { width: 280px; min-width: 280px; background: #fff; border-right: 1px solid #ddd; overflow-y: auto; display: flex; flex-direction: column; }
+.sidebar-title { background: #222; color: #fff; padding: 9px 14px; font-size: 12px; font-weight: bold; letter-spacing: 0.5px; }
+.accordion { border-bottom: 1px solid #e8e8e8; }
+.acc-head { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; cursor: pointer; font-weight: bold; font-size: 12px; background: white; user-select: none; transition: background 0.15s; }
+.acc-head:hover { background: #f7f7f7; }
+.acc-head .badge { background: #27ae60; color: white; border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: normal; min-width: 20px; text-align: center; }
+.acc-head .badge.zero { background: #ccc; }
+.acc-arrow { font-size: 10px; color: #999; transition: transform 0.2s; }
+.acc-head.open .acc-arrow { transform: rotate(180deg); }
+.acc-body { display: none; padding: 8px 14px 12px; background: #fafafa; }
+.acc-body.open { display: block; }
+.section-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 8px 0 4px; }
+.section-label:first-child { margin-top: 0; }
+.chk-row { display: flex; align-items: flex-start; gap: 7px; padding: 3px 0; font-size: 12px; line-height: 1.4; }
+.chk-row input[type=checkbox] { margin-top: 1px; cursor: pointer; accent-color: #bf0000; width: 13px; height: 13px; flex-shrink: 0; }
+.chk-row label { cursor: pointer; flex: 1; }
+.tag { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+.tag-fee { background: #e8f4e8; color: #1e8449; }
+.tag-disc { background: #fef0e8; color: #c0392b; }
+
+/* ── Month tabs ── */
+.mtabs { display: flex; margin: 4px 0 8px; border-radius: 4px; overflow: hidden; border: 1px solid #ddd; }
+.mtab { flex: 1; text-align: center; padding: 4px; font-size: 11px; cursor: pointer; background: white; border: none; transition: background 0.15s; }
+.mtab.active { background: #bf0000; color: white; font-weight: bold; }
+.mtab:not(:last-child) { border-right: 1px solid #ddd; }
+.month-panel { display: none; }
+.month-panel.active { display: block; }
+
+/* ── Main panel ── */
+.main { flex: 1; overflow-y: auto; }
+
+/* ── Calendar/Gantt ── */
+.section { background: white; border-bottom: 2px solid #eee; padding: 16px 20px; }
+.section-h { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.section-h .icon { font-size: 16px; }
+
+.gantt-wrap { overflow-x: auto; }
+.gantt { min-width: 620px; }
+.gantt-top { display: flex; margin-bottom: 4px; }
+.gantt-lbl { width: 160px; min-width: 160px; }
+.gantt-axis { flex: 1; position: relative; height: 20px; border-bottom: 1px solid #ccc; }
+.gantt-tick { position: absolute; top: 0; font-size: 10px; color: #888; padding-left: 2px; border-left: 1px solid #ddd; height: 100%; line-height: 20px; }
+.gantt-row { display: flex; align-items: center; margin-bottom: 3px; }
+.gantt-row-label { width: 160px; min-width: 160px; font-size: 11px; color: #555; padding-right: 8px; line-height: 1.3; }
+.gantt-track { flex: 1; position: relative; height: 16px; background: #f5f5f5; border-radius: 3px; }
+.gantt-bar { position: absolute; top: 0; height: 100%; border-radius: 3px; display: flex; align-items: center; padding: 0 3px; font-size: 9px; color: white; white-space: nowrap; overflow: visible; z-index: 1; }
+.gantt-bar:hover { opacity: 1 !important; z-index: 10; }
+.gantt-dot { position: absolute; top: 1px; height: calc(100% - 2px); border-radius: 2px; }
+.gantt-sep { position: absolute; top: 0; height: 100%; border-left: 1px solid #ccc; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
+.legend-color { width: 12px; height: 12px; border-radius: 2px; }
+
+/* ── Simulator ── */
+.sim-wrap { padding: 16px 20px; }
+.form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+.form-group label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 4px; }
+.form-group input, .form-group select { width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 6px 8px; font-size: 13px; transition: border 0.15s; }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: #bf0000; box-shadow: 0 0 0 2px rgba(191,0,0,0.1); }
+.sim-btn { background: #bf0000; color: white; border: none; padding: 9px 24px; border-radius: 5px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.15s; }
+.sim-btn:hover { background: #9a0000; }
+
+/* ── Results ── */
+.results { margin-top: 14px; }
+.result-section-title { font-size: 12px; font-weight: bold; color: #555; margin-bottom: 8px; }
+.result-cards { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.result-card { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; flex: 1; min-width: 220px; max-width: 340px; }
+.result-card.ok { border-left: 4px solid #27ae60; background: #f8fff9; }
+.result-card.ng { border-left: 4px solid #ccc; opacity: 0.65; }
+.result-card .rc-title { font-weight: bold; font-size: 12px; margin-bottom: 6px; }
+.result-card .rc-row { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+.result-card .rc-row .num { font-weight: bold; }
+.result-card .rc-reason { font-size: 11px; color: #888; margin-top: 2px; line-height: 1.4; }
+.disc-num { color: #c0392b; }
+.fee-num { color: #1a5ea8; }
+
+.summary-box { border: 2px solid #bf0000; border-radius: 8px; padding: 14px 16px; background: #fffafa; margin-top: 12px; }
+.summary-box h3 { font-size: 13px; font-weight: bold; color: #bf0000; margin-bottom: 10px; }
+.sum-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
+.sum-row.total { border-top: 1px solid #ddd; margin-top: 6px; padding-top: 8px; font-size: 15px; font-weight: bold; }
+.sum-row .label { color: #555; }
+.sum-row .value { font-weight: bold; }
+.no-result { text-align: center; color: #888; padding: 24px; background: white; border-radius: 6px; border: 1px dashed #ddd; font-size: 13px; }
+.note { font-size: 11px; color: #888; margin-top: 8px; line-height: 1.5; }
+details summary { cursor: pointer; font-size: 12px; color: #888; padding: 8px 0; }
+details summary:hover { color: #555; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">R</div>
+  <div>
+    <h1>楽天企画型クーポン チェッカー</h1>
+    <div class="sub">2026年 Q2（4月・5月・6月）対応版</div>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- ===== Sidebar ===== -->
+  <div class="sidebar">
+    <div class="sidebar-title">▼ 参加クーポン設定</div>
+
+    <!-- 春夏フェア -->
+    <div class="accordion" id="acc-harnatsu">
+      <div class="acc-head" onclick="toggleAcc('harnatsu')">
+        <span>🌸 春夏フェア</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="badge zero" id="badge-harnatsu">0</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+      </div>
+      <div class="acc-body" id="body-harnatsu">
+        <div class="section-label">割引プラン選択</div>
+        <div class="chk-row">
+          <input type="checkbox" id="harnatsu15" onchange="updateState('harnatsu15',this.checked)">
+          <label for="harnatsu15">15%OFF <span class="tag tag-disc">上限¥23,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥10,000 / 宿泊3/31〜2027/2/28</span></label>
+        </div>
+        <div class="chk-row">
+          <input type="checkbox" id="harnatsu10" onchange="updateState('harnatsu10',this.checked)">
+          <label for="harnatsu10">10%OFF <span class="tag tag-disc">上限¥10,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥6,000 / 除外日：5/1〜5/5</span></label>
+        </div>
+        <div style="font-size:10px;color:#888;margin-top:6px;padding:4px 6px;background:#f0f0f0;border-radius:3px">
+          予約受付：3/31 10:00〜4/20 09:59
+        </div>
+      </div>
+    </div>
+
+    <!-- 5と0のつく日 -->
+    <div class="accordion" id="acc-gojo">
+      <div class="acc-head" onclick="toggleAcc('gojo')">
+        <span>5️⃣ 5と0のつく日（高級・温泉宿）</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="badge zero" id="badge-gojo">0</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+      </div>
+      <div class="acc-body" id="body-gojo">
+        <div style="font-size:10px;color:#555;margin-bottom:6px;padding:4px 6px;background:#e8f0fb;border-radius:3px">
+          10%OFF（上限¥10,000・最低¥10,000・手数料5%）<br>
+          各月5・10・15・20・25・30日の0時から48時間（6月は72時間）以内の予約が対象
+        </div>
+        <div class="chk-row">
+          <input type="checkbox" id="gojo_4" onchange="updateState('gojo_4',this.checked)">
+          <label for="gojo_4">4月（除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22）</label>
+        </div>
+        <div class="chk-row">
+          <input type="checkbox" id="gojo_5" onchange="updateState('gojo_5',this.checked)">
+          <label for="gojo_5">5月（除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11）</label>
+        </div>
+        <div class="chk-row">
+          <input type="checkbox" id="gojo_6" onchange="updateState('gojo_6',this.checked)">
+          <label for="gojo_6">6月（除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22）</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- クーポン祭 -->
+    <div class="accordion" id="acc-matsuri">
+      <div class="acc-head" onclick="toggleAcc('matsuri')">
+        <span>🎉 クーポン祭（高級・温泉宿）</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="badge zero" id="badge-matsuri">0</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+      </div>
+      <div class="acc-body" id="body-matsuri">
+        <div class="mtabs">
+          <button class="mtab active" onclick="setMtab('matsuri',4)">4月</button>
+          <button class="mtab" onclick="setMtab('matsuri',5)">5月</button>
+          <button class="mtab" onclick="setMtab('matsuri',6)">6月</button>
+        </div>
+        <div id="matsuri-panel-4" class="month-panel active"></div>
+        <div id="matsuri-panel-5" class="month-panel"></div>
+        <div id="matsuri-panel-6" class="month-panel"></div>
+      </div>
+    </div>
+
+    <!-- スペシャルWeek -->
+    <div class="accordion" id="acc-special">
+      <div class="acc-head" onclick="toggleAcc('special')">
+        <span>⭐ スペシャルクーポンWeek（月末企画）</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="badge zero" id="badge-special">0</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+      </div>
+      <div class="acc-body" id="body-special">
+        <div class="mtabs">
+          <button class="mtab active" onclick="setMtab('special',4)">4月</button>
+          <button class="mtab" onclick="setMtab('special',5)">5月</button>
+          <button class="mtab" onclick="setMtab('special',6)">6月</button>
+        </div>
+        <div id="special-panel-4" class="month-panel active"></div>
+        <div id="special-panel-5" class="month-panel"></div>
+        <div id="special-panel-6" class="month-panel"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Main ===== -->
+  <div class="main">
+    <!-- Calendar -->
+    <div class="section">
+      <div class="section-h"><span class="icon">📅</span>予約受付期間カレンダー（2026年4〜6月）</div>
+      <div class="gantt-wrap">
+        <div class="gantt" id="gantt"></div>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <!-- Simulator -->
+    <div class="section sim-wrap">
+      <div class="section-h"><span class="icon">🔍</span>クーポン適用シミュレーション</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>予約日時</label>
+          <input type="datetime-local" id="reservationDate" value="2026-04-10T10:00">
+        </div>
+        <div class="form-group">
+          <label>チェックイン日</label>
+          <input type="date" id="stayDate" value="2026-04-25">
+        </div>
+        <div class="form-group">
+          <label>宿泊金額（円・税込）</label>
+          <input type="number" id="amount" value="50000" min="0" step="1000">
+        </div>
+        <div class="form-group">
+          <label>会員ランク</label>
+          <select id="memberRank">
+            <option value="diamond">ダイヤモンド</option>
+            <option value="platinum">プラチナ</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+      </div>
+      <button class="sim-btn" onclick="simulate()">▶ シミュレーション実行</button>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ============================================================
+// HELPERS
+// ============================================================
+function d(y, m, day, h = 0, mi = 0) {
+  return new Date(y, m - 1, day, h, mi, 0);
+}
+
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
+function isDateInRange(date, start, end) {
+  const dd = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const ss = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const ee = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  return dd >= ss && dd <= ee;
+}
+
+function isExcluded(date, ranges) {
+  return ranges.some(([s, e]) => isDateInRange(date, s, e));
+}
+
+function isInGojoWindow(rd, month) {
+  const hours = month === 6 ? 72 : 48;
+  const gojoDays = [5, 10, 15, 20, 25, 30];
+  const maxDay = new Date(2026, month, 0).getDate();
+  return gojoDays.some(day => {
+    if (day > maxDay) return false;
+    const start = new Date(2026, month - 1, day, 0, 0, 0);
+    const end = new Date(start.getTime() + hours * 3600000);
+    return rd >= start && rd < end;
+  });
+}
+
+function isWeekend(date) {
+  const dow = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getDay();
+  return dow === 5 || dow === 6; // Fri or Sat
+}
+
+function yen(n) {
+  return '¥' + Math.round(n).toLocaleString('ja-JP');
+}
+
+function pct(n) {
+  return (n * 100).toFixed(0) + '%';
+}
+
+// ============================================================
+// EXCLUDED DATE RANGES
+// ============================================================
+const EX = {
+  gojoMatsuri_4: [
+    [d(2026,5,1), d(2026,5,5)],
+    [d(2026,7,17), d(2026,7,19)],
+    [d(2026,8,7), d(2026,8,15)],
+    [d(2026,9,18), d(2026,9,22)]
+  ],
+  gojoMatsuri_5: [
+    [d(2026,7,17), d(2026,7,19)],
+    [d(2026,8,7), d(2026,8,15)],
+    [d(2026,9,18), d(2026,9,22)],
+    [d(2026,10,9), d(2026,10,11)]
+  ],
+  gojoMatsuri_6: [
+    [d(2026,7,17), d(2026,7,19)],
+    [d(2026,8,7), d(2026,8,15)],
+    [d(2026,9,18), d(2026,9,22)],
+    [d(2026,10,9), d(2026,10,11)],
+    [d(2026,11,20), d(2026,11,22)]
+  ],
+  harnatsu: [
+    [d(2026,5,1), d(2026,5,5)]
+  ],
+  special_4: [
+    [d(2026,5,1), d(2026,5,5)],
+    [d(2026,8,13), d(2026,8,15)],
+    [d(2026,9,18), d(2026,9,22)]
+  ],
+  special_56: [
+    [d(2026,8,13), d(2026,8,15)],
+    [d(2026,9,18), d(2026,9,22)]
+  ]
+};
+
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  harnatsu15: false, harnatsu10: false,
+  gojo_4: false, gojo_5: false, gojo_6: false,
+  matsuri_4_all: false, matsuri_4_hd1000: false, matsuri_4_hd2500: false, matsuri_4_hd4000: false,
+  matsuri_4_we1500: false, matsuri_4_we3000: false, matsuri_4_we4500: false,
+  matsuri_5_all: false, matsuri_5_hd1000: false, matsuri_5_hd2500: false, matsuri_5_hd4000: false,
+  matsuri_5_we1500: false, matsuri_5_we3000: false, matsuri_5_we4500: false,
+  matsuri_6_all: false, matsuri_6_hd1000: false, matsuri_6_hd2500: false, matsuri_6_hd4000: false,
+  matsuri_6_we1500: false, matsuri_6_we3000: false, matsuri_6_we4500: false,
+  special_4_20: false, special_4_10rk: false, special_4_10nk: false,
+  special_5_20: false, special_5_10rk: false, special_5_10nk: false,
+  special_6_20: false, special_6_10rk: false, special_6_10nk: false,
+};
+
+function updateState(key, val) {
+  state[key] = val;
+  updateBadges();
+}
+
+// ============================================================
+// ACCORDION
+// ============================================================
+function toggleAcc(id) {
+  const head = document.querySelector(`#acc-${id} .acc-head`);
+  const body = document.getElementById(`body-${id}`);
+  head.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// Month tabs
+const mtabState = { matsuri: 4, special: 4 };
+
+function setMtab(prog, month) {
+  mtabState[prog] = month;
+  const body = document.getElementById(`body-${prog}`);
+  body.querySelectorAll('.mtab').forEach((btn, i) => {
+    btn.classList.toggle('active', [4,5,6][i] === month);
+  });
+  body.querySelectorAll('.month-panel').forEach((panel, i) => {
+    panel.classList.toggle('active', [4,5,6][i] === month);
+  });
+}
+
+// ============================================================
+// BADGE COUNTS
+// ============================================================
+function updateBadges() {
+  const counts = { harnatsu: 0, gojo: 0, matsuri: 0, special: 0 };
+  if (state.harnatsu15) counts.harnatsu++;
+  if (state.harnatsu10) counts.harnatsu++;
+  [4,5,6].forEach(mo => {
+    if (state[`gojo_${mo}`]) counts.gojo++;
+    ['all','hd1000','hd2500','hd4000','we1500','we3000','we4500'].forEach(k => {
+      if (state[`matsuri_${mo}_${k}`]) counts.matsuri++;
+    });
+    ['20','10rk','10nk'].forEach(k => {
+      if (state[`special_${mo}_${k}`]) counts.special++;
+    });
+  });
+  Object.keys(counts).forEach(k => {
+    const badge = document.getElementById(`badge-${k}`);
+    if (badge) {
+      badge.textContent = counts[k];
+      badge.className = 'badge' + (counts[k] === 0 ? ' zero' : '');
+    }
+  });
+}
+
+// ============================================================
+// BUILD クーポン祭 & スペシャルWeek PANELS
+// ============================================================
+function buildMatsuriPanel(mo) {
+  const windows = { 4: '4/2〜5/1', 5: '5/1〜6/2', 6: '6/2〜7/2' };
+  const excluded_text = {
+    4: '除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22',
+    5: '除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11',
+    6: '除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22'
+  };
+
+  const rows = [
+    { key: `matsuri_${mo}_all`,    label: '全会員 ¥500<br><span style="font-size:10px;color:#888">最低金額なし・手数料5%</span>', section: null },
+    { section: '平日割引（日〜木）・手数料5%' },
+    { key: `matsuri_${mo}_hd4000`, label: 'ダイヤモンド ¥4,000<br><span style="font-size:10px;color:#888">最低¥35,000</span>' },
+    { key: `matsuri_${mo}_hd2500`, label: 'D/P ¥2,500<br><span style="font-size:10px;color:#888">最低¥20,000</span>' },
+    { key: `matsuri_${mo}_hd1000`, label: 'D/P ¥1,000<br><span style="font-size:10px;color:#888">最低¥8,000</span>' },
+    { section: '週末割引（金・土）・手数料3%' },
+    { key: `matsuri_${mo}_we4500`, label: 'ダイヤモンド ¥4,500<br><span style="font-size:10px;color:#888">最低¥40,000</span>' },
+    { key: `matsuri_${mo}_we3000`, label: 'D/P ¥3,000<br><span style="font-size:10px;color:#888">最低¥25,000</span>' },
+    { key: `matsuri_${mo}_we1500`, label: 'D/P ¥1,500<br><span style="font-size:10px;color:#888">最低¥12,000</span>' },
+  ];
+
+  let html = `<div style="font-size:10px;color:#555;padding:4px 6px;background:#f0e8fb;border-radius:3px;margin-bottom:6px">
+    予約受付：${windows[mo]}<br>${excluded_text[mo]}
+  </div>`;
+
+  rows.forEach(r => {
+    if (r.section) {
+      html += `<div class="section-label">${r.section}</div>`;
+    } else {
+      html += `<div class="chk-row">
+        <input type="checkbox" id="${r.key}" onchange="updateState('${r.key}',this.checked)">
+        <label for="${r.key}">${r.label}</label>
+      </div>`;
+    }
+  });
+
+  return html;
+}
+
+function buildSpecialPanel(mo) {
+  const configs = {
+    4: { win: '4/20 10:00〜5/1 09:59', stay: '4/20〜2027/3/31' },
+    5: { win: '5/20 10:00〜6/1 09:59',  stay: '5/20〜2027/4/30' },
+    6: { win: '6/19 10:00〜6/30 23:59', stay: '6/19〜2027/5/31' },
+  };
+  const c = configs[mo];
+  const excluded_rk = mo === 4 ? '5/1〜5/5, 8/13〜15, 9/18〜22' : '8/13〜15, 9/18〜22';
+
+  return `<div style="font-size:10px;color:#555;padding:4px 6px;background:#e8f4e8;border-radius:3px;margin-bottom:6px">
+    予約受付：${c.win}<br>宿泊対象期間：${c.stay}<br>連休除外日：${excluded_rk}
+  </div>
+  <div class="chk-row">
+    <input type="checkbox" id="special_${mo}_20" onchange="updateState('special_${mo}_20',this.checked)">
+    <label for="special_${mo}_20">20%OFF <span class="tag tag-disc">上限¥15,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥30,000 / 連休除外あり</span></label>
+  </div>
+  <div class="chk-row">
+    <input type="checkbox" id="special_${mo}_10rk" onchange="updateState('special_${mo}_10rk',this.checked)">
+    <label for="special_${mo}_10rk">10%OFF（連休除外あり）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label>
+  </div>
+  <div class="chk-row">
+    <input type="checkbox" id="special_${mo}_10nk" onchange="updateState('special_${mo}_10nk',this.checked)">
+    <label for="special_${mo}_10nk">10%OFF（除外日なし）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label>
+  </div>`;
+}
+
+// ============================================================
+// GANTT CHART
+// ============================================================
+const GANTT_START = new Date(2026, 3, 1); // Apr 1
+const GANTT_DAYS = 91; // Apr 1 – Jun 30
+
+function dayOff(date) {
+  const dd = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return Math.round((dd - GANTT_START) / 86400000);
+}
+
+function toPct(date) {
+  return Math.max(0, Math.min(100, (dayOff(date) / GANTT_DAYS) * 100));
+}
+
+function widthPct(start, end) {
+  const s = Math.max(0, dayOff(start));
+  const e = Math.min(GANTT_DAYS, dayOff(end));
+  return Math.max(0, ((e - s) / GANTT_DAYS) * 100);
+}
+
+const COLORS = {
+  harnatsu: '#e74c3c',
+  gojo: '#3498db',
+  matsuri: '#9b59b6',
+  special: '#27ae60',
+};
+
+function buildGantt() {
+  const ganttRows = [
+    {
+      label: '春夏フェア',
+      color: COLORS.harnatsu,
+      bars: [{ start: d(2026,3,31), end: d(2026,4,20), tip: '予約受付期間' }]
+    },
+    {
+      label: '5と0のつく日 4月',
+      color: COLORS.gojo,
+      gojoDots: 4
+    },
+    {
+      label: '5と0のつく日 5月',
+      color: COLORS.gojo,
+      gojoDots: 5
+    },
+    {
+      label: '5と0のつく日 6月',
+      color: COLORS.gojo,
+      gojoDots: 6,
+      gojoH: 72
+    },
+    {
+      label: 'クーポン祭 4月',
+      color: COLORS.matsuri,
+      bars: [{ start: d(2026,4,2), end: d(2026,5,1), tip: '4/2〜5/1' }]
+    },
+    {
+      label: 'クーポン祭 5月',
+      color: COLORS.matsuri,
+      bars: [{ start: d(2026,5,1), end: d(2026,6,2), tip: '5/1〜6/2' }]
+    },
+    {
+      label: 'クーポン祭 6月',
+      color: COLORS.matsuri,
+      bars: [{ start: d(2026,6,2), end: d(2026,6,30), tip: '6/2〜7/2' }]
+    },
+    {
+      label: 'スペシャルWeek 4月',
+      color: COLORS.special,
+      bars: [{ start: d(2026,4,20), end: d(2026,5,1), tip: '4/20 10:00〜5/1 09:59' }]
+    },
+    {
+      label: 'スペシャルWeek 5月',
+      color: COLORS.special,
+      bars: [{ start: d(2026,5,20), end: d(2026,6,1), tip: '5/20 10:00〜6/1 09:59' }]
+    },
+    {
+      label: 'スペシャルWeek 6月',
+      color: COLORS.special,
+      bars: [{ start: d(2026,6,19), end: d(2026,6,30), tip: '6/19 10:00〜6/30 23:59' }]
+    },
+  ];
+
+  // Build axis ticks
+  const ticks = [];
+  const tickDates = [
+    { date: new Date(2026,3,1), label: '4/1' },
+    { date: new Date(2026,3,15), label: '4/15' },
+    { date: new Date(2026,4,1), label: '5/1' },
+    { date: new Date(2026,4,15), label: '5/15' },
+    { date: new Date(2026,5,1), label: '6/1' },
+    { date: new Date(2026,5,15), label: '6/15' },
+    { date: new Date(2026,5,30), label: '6/30' },
+  ];
+  let axisHtml = '<div style="display:flex;margin-bottom:4px;">'
+    + '<div style="width:160px;min-width:160px;font-size:10px;color:#888;text-align:right;padding-right:6px">プログラム</div>'
+    + '<div style="flex:1;position:relative;height:20px;border-bottom:1px solid #ccc;">';
+  tickDates.forEach(t => {
+    const left = toPct(t.date);
+    axisHtml += `<div style="position:absolute;left:${left}%;font-size:10px;color:#888;padding-left:2px;border-left:1px solid #ddd;height:100%;line-height:20px">${t.label}</div>`;
+  });
+  axisHtml += '</div></div>';
+
+  let rowsHtml = '';
+  ganttRows.forEach(row => {
+    let barsHtml = '';
+
+    if (row.gojoDots !== undefined) {
+      // Gojo day dots/bars
+      const mo = row.gojoDots;
+      const hours = row.gojoH || 48;
+      const gojoDays = [5, 10, 15, 20, 25, 30];
+      gojoDays.forEach(day => {
+        const maxDay = new Date(2026, mo, 0).getDate();
+        if (day > maxDay) return;
+        const start = new Date(2026, mo - 1, day);
+        const end = new Date(start.getTime() + hours * 3600000);
+        const left = toPct(start);
+        const w = Math.max(0.8, widthPct(start, end));
+        barsHtml += `<div class="gantt-dot" style="left:${left}%;width:${w}%;background:${row.color};opacity:0.7" title="${mo}/${day} 〜 ${hours}h"></div>`;
+      });
+    } else {
+      row.bars.forEach(bar => {
+        const left = toPct(bar.start);
+        const w = widthPct(bar.start, bar.end);
+        barsHtml += `<div class="gantt-bar" style="left:${left}%;width:${w}%;background:${row.color};opacity:0.82" title="${bar.tip || ''}"></div>`;
+      });
+    }
+
+    rowsHtml += `<div class="gantt-row">
+      <div class="gantt-row-label">${row.label}</div>
+      <div class="gantt-track">${barsHtml}</div>
+    </div>`;
+  });
+
+  document.getElementById('gantt').innerHTML = axisHtml + rowsHtml;
+
+  // Legend
+  const legends = [
+    { color: COLORS.harnatsu, label: '春夏フェア' },
+    { color: COLORS.gojo, label: '5と0のつく日' },
+    { color: COLORS.matsuri, label: 'クーポン祭' },
+    { color: COLORS.special, label: 'スペシャルWeek' },
+  ];
+  document.getElementById('legend').innerHTML = legends.map(l =>
+    `<div class="legend-item"><div class="legend-color" style="background:${l.color}"></div>${l.label}</div>`
+  ).join('');
+}
+
+// ============================================================
+// COUPON DEFINITIONS
+// ============================================================
+function getCoupons() {
+  const coupons = [];
+
+  // ---- 春夏フェア ----
+  const hnResStart = d(2026,3,31,10);
+  const hnResEnd = d(2026,4,20,9,59);
+
+  if (state.harnatsu15) {
+    coupons.push({
+      id: 'harnatsu15', name: '春夏フェア 15%OFF', color: COLORS.harnatsu,
+      check(rd, sd, amt) {
+        if (rd < hnResStart || rd > hnResEnd) return { ok: false, reason: '予約期間外（3/31 10:00〜4/20 09:59）' };
+        if (!isDateInRange(sd, d(2026,3,31), d(2027,2,28))) return { ok: false, reason: '宿泊対象期間外' };
+        if (isExcluded(sd, EX.harnatsu)) return { ok: false, reason: '除外日（5/1〜5/5）に該当' };
+        if (amt < 10000) return { ok: false, reason: `最低予約金額 ¥10,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: Math.min(amt * 0.15, 23000), fee: amt * 0.05, feeRate: 0.05 };
+      }
+    });
+  }
+
+  if (state.harnatsu10) {
+    coupons.push({
+      id: 'harnatsu10', name: '春夏フェア 10%OFF', color: COLORS.harnatsu,
+      check(rd, sd, amt) {
+        if (rd < hnResStart || rd > hnResEnd) return { ok: false, reason: '予約期間外（3/31 10:00〜4/20 09:59）' };
+        if (!isDateInRange(sd, d(2026,3,31), d(2027,2,28))) return { ok: false, reason: '宿泊対象期間外' };
+        if (isExcluded(sd, EX.harnatsu)) return { ok: false, reason: '除外日（5/1〜5/5）に該当' };
+        if (amt < 6000) return { ok: false, reason: `最低予約金額 ¥6,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: Math.min(amt * 0.10, 10000), fee: amt * 0.05, feeRate: 0.05 };
+      }
+    });
+  }
+
+  // ---- 5と0のつく日 ----
+  [4, 5, 6].forEach(mo => {
+    if (!state[`gojo_${mo}`]) return;
+    const hrs = mo === 6 ? 72 : 48;
+    coupons.push({
+      id: `gojo_${mo}`, name: `5と0のつく日 ${mo}月`, color: COLORS.gojo,
+      check(rd, sd, amt) {
+        if (!isInGojoWindow(rd, mo)) return { ok: false, reason: `予約期間外（${mo}月の5・10・15・20・25・30日 00:00から${hrs}時間以内の予約が対象）` };
+        if (isExcluded(sd, EX[`gojoMatsuri_${mo}`])) return { ok: false, reason: '除外日に該当' };
+        if (amt < 10000) return { ok: false, reason: `最低予約金額 ¥10,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: Math.min(amt * 0.10, 10000), fee: amt * 0.05, feeRate: 0.05 };
+      }
+    });
+  });
+
+  // ---- クーポン祭 ----
+  const matsuriWin = {
+    4: { s: d(2026,4,2), e: d(2026,5,1,23,59), label: '4/2〜5/1' },
+    5: { s: d(2026,5,1), e: d(2026,6,2,23,59), label: '5/1〜6/2' },
+    6: { s: d(2026,6,2), e: d(2026,7,2,23,59), label: '6/2〜7/2' },
+  };
+
+  [4, 5, 6].forEach(mo => {
+    const { s: ws, e: we, label: wl } = matsuriWin[mo];
+    const ex = EX[`gojoMatsuri_${mo}`];
+
+    const addMatsuri = (key, name, checkFn) => {
+      if (!state[key]) return;
+      coupons.push({ id: key, name, color: COLORS.matsuri, check: checkFn });
+    };
+
+    // 全会員 ¥500
+    addMatsuri(`matsuri_${mo}_all`, `クーポン祭 ${mo}月 全会員 ¥500`,
+      (rd, sd, amt) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        return { ok: true, disc: 500, fee: amt * 0.05, feeRate: 0.05 };
+      });
+
+    // 平日 ¥1,000 D/P
+    addMatsuri(`matsuri_${mo}_hd1000`, `クーポン祭 ${mo}月 平日 D/P ¥1,000`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
+        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
+        if (amt < 8000) return { ok: false, reason: `最低予約金額 ¥8,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 1000, fee: amt * 0.05, feeRate: 0.05 };
+      });
+
+    // 平日 ¥2,500 D/P
+    addMatsuri(`matsuri_${mo}_hd2500`, `クーポン祭 ${mo}月 平日 D/P ¥2,500`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
+        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
+        if (amt < 20000) return { ok: false, reason: `最低予約金額 ¥20,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 2500, fee: amt * 0.05, feeRate: 0.05 };
+      });
+
+    // 平日 ¥4,000 Diamond
+    addMatsuri(`matsuri_${mo}_hd4000`, `クーポン祭 ${mo}月 平日 ダイヤモンド ¥4,000`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
+        if (rank !== 'diamond') return { ok: false, reason: 'ダイヤモンド会員限定' };
+        if (amt < 35000) return { ok: false, reason: `最低予約金額 ¥35,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 4000, fee: amt * 0.05, feeRate: 0.05 };
+      });
+
+    // 週末 ¥1,500 D/P
+    addMatsuri(`matsuri_${mo}_we1500`, `クーポン祭 ${mo}月 週末 D/P ¥1,500`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
+        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
+        if (amt < 12000) return { ok: false, reason: `最低予約金額 ¥12,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 1500, fee: amt * 0.03, feeRate: 0.03 };
+      });
+
+    // 週末 ¥3,000 D/P
+    addMatsuri(`matsuri_${mo}_we3000`, `クーポン祭 ${mo}月 週末 D/P ¥3,000`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
+        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
+        if (amt < 25000) return { ok: false, reason: `最低予約金額 ¥25,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 3000, fee: amt * 0.03, feeRate: 0.03 };
+      });
+
+    // 週末 ¥4,500 Diamond
+    addMatsuri(`matsuri_${mo}_we4500`, `クーポン祭 ${mo}月 週末 ダイヤモンド ¥4,500`,
+      (rd, sd, amt, rank) => {
+        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
+        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
+        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
+        if (rank !== 'diamond') return { ok: false, reason: 'ダイヤモンド会員限定' };
+        if (amt < 40000) return { ok: false, reason: `最低予約金額 ¥40,000 未満（現在 ${yen(amt)}）` };
+        return { ok: true, disc: 4500, fee: amt * 0.03, feeRate: 0.03 };
+      });
+  });
+
+  // ---- スペシャルWeek ----
+  const spCfg = {
+    4: { ws: d(2026,4,20,10), we: d(2026,5,1,9,59), ss: d(2026,4,20), se: d(2027,3,31), ex: EX.special_4,  wl: '4/20 10:00〜5/1 09:59' },
+    5: { ws: d(2026,5,20,10), we: d(2026,6,1,9,59),  ss: d(2026,5,20), se: d(2027,4,30), ex: EX.special_56, wl: '5/20 10:00〜6/1 09:59' },
+    6: { ws: d(2026,6,19,10), we: d(2026,6,30,23,59), ss: d(2026,6,19), se: d(2027,5,31), ex: EX.special_56, wl: '6/19 10:00〜6/30 23:59' },
+  };
+
+  [4, 5, 6].forEach(mo => {
+    const c = spCfg[mo];
+
+    if (state[`special_${mo}_20`]) {
+      coupons.push({
+        id: `special_${mo}_20`, name: `スペシャルWeek ${mo}月 20%OFF`, color: COLORS.special,
+        check(rd, sd, amt) {
+          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
+          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
+          if (isExcluded(sd, c.ex)) return { ok: false, reason: '除外日（連休）に該当' };
+          if (amt < 30000) return { ok: false, reason: `最低予約金額 ¥30,000 未満（現在 ${yen(amt)}）` };
+          return { ok: true, disc: Math.min(amt * 0.20, 15000), fee: amt * 0.05, feeRate: 0.05 };
+        }
+      });
+    }
+
+    if (state[`special_${mo}_10rk`]) {
+      coupons.push({
+        id: `special_${mo}_10rk`, name: `スペシャルWeek ${mo}月 10%OFF（連休除外）`, color: '#2ecc71',
+        check(rd, sd, amt) {
+          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
+          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
+          if (isExcluded(sd, c.ex)) return { ok: false, reason: '除外日（連休）に該当' };
+          return { ok: true, disc: Math.min(amt * 0.10, 5000), fee: amt * 0.05, feeRate: 0.05 };
+        }
+      });
+    }
+
+    if (state[`special_${mo}_10nk`]) {
+      coupons.push({
+        id: `special_${mo}_10nk`, name: `スペシャルWeek ${mo}月 10%OFF（除外日なし）`, color: '#1abc9c',
+        check(rd, sd, amt) {
+          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
+          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
+          // No excluded dates
+          return { ok: true, disc: Math.min(amt * 0.10, 5000), fee: amt * 0.05, feeRate: 0.05 };
+        }
+      });
+    }
+  });
+
+  return coupons;
+}
+
+// ============================================================
+// SIMULATION
+// ============================================================
+function simulate() {
+  const rdVal = document.getElementById('reservationDate').value;
+  const sdVal = document.getElementById('stayDate').value;
+  const amt = parseInt(document.getElementById('amount').value) || 0;
+  const rank = document.getElementById('memberRank').value;
+
+  if (!rdVal || !sdVal || !amt) {
+    document.getElementById('results').innerHTML = '<div class="no-result">すべての項目を入力してください。</div>';
+    return;
+  }
+
+  const rd = new Date(rdVal);
+  const sdParts = sdVal.split('-').map(Number);
+  const sd = new Date(sdParts[0], sdParts[1] - 1, sdParts[2]);
+
+  const DOW = ['日','月','火','水','木','金','土'];
+  const sdDow = DOW[sd.getDay()];
+
+  const coupons = getCoupons();
+
+  if (coupons.length === 0) {
+    document.getElementById('results').innerHTML =
+      '<div class="no-result">参加設定されているクーポンプログラムがありません。<br>左側のパネルから参加するクーポンを選択してください。</div>';
+    return;
+  }
+
+  const results = coupons.map(c => ({ coupon: c, result: c.check(rd, sd, amt, rank) }));
+  const applied = results.filter(r => r.result.ok);
+  const notApplied = results.filter(r => !r.result.ok);
+
+  // Info bar
+  let html = `<div style="background:#f0f4fa;border:1px solid #ccd;border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#445;display:flex;gap:20px;flex-wrap:wrap">
+    <span>📅 予約日時：<strong>${rdVal.replace('T',' ')}</strong></span>
+    <span>🏨 チェックイン：<strong>${sdVal}（${sdDow}）${isWeekend(sd)?'【週末】':'【平日】'}</strong></span>
+    <span>💴 宿泊金額：<strong>${yen(amt)}</strong></span>
+    <span>👤 会員ランク：<strong>${rank === 'diamond' ? 'ダイヤモンド' : rank === 'platinum' ? 'プラチナ' : 'その他'}</strong></span>
+  </div>`;
+
+  if (applied.length === 0) {
+    html += '<div class="no-result">現在の条件では適用できるクーポンがありません。<br>予約日時・チェックイン日・宿泊金額・会員ランクを確認してください。</div>';
+  } else {
+    // Sort by discount desc
+    applied.sort((a, b) => b.result.disc - a.result.disc);
+    const best = applied[0];
+
+    html += `<div class="result-section-title">✅ 適用可能なクーポン（${applied.length}件）</div>`;
+    html += '<div class="result-cards">';
+    applied.forEach(({ coupon, result }) => {
+      const isBest = coupon.id === best.coupon.id;
+      html += `<div class="result-card ok" style="${isBest ? 'box-shadow:0 0 0 2px ' + coupon.color + ';' : ''}">
+        <div class="rc-title" style="color:${coupon.color}">${isBest ? '★ ' : ''}${coupon.name}</div>
+        <div class="rc-row"><span>割引額</span><span class="num disc-num">▲ ${yen(result.disc)}</span></div>
+        <div class="rc-row"><span>販促システム利用料（手数料${pct(result.feeRate)}）</span><span class="num fee-num">▲ ${yen(result.fee)}</span></div>
+        <div class="rc-row" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span>施設実質受取額</span><span class="num">${yen(amt - result.disc - result.fee)}</span></div>
+      </div>`;
+    });
+    html += '</div>';
+
+    // Summary for best coupon
+    html += `<div class="summary-box">
+      <h3>最大割引クーポン適用時の施設負担まとめ</h3>
+      <div class="sum-row"><span class="label">適用クーポン</span><span class="value" style="color:${best.coupon.color}">${best.coupon.name}</span></div>
+      <div class="sum-row"><span class="label">予約金額（割引前）</span><span class="value">${yen(amt)}</span></div>
+      <div class="sum-row"><span class="label">割引額（施設負担）</span><span class="value disc-num">▲ ${yen(best.result.disc)}</span></div>
+      <div class="sum-row"><span class="label">お客様お支払額</span><span class="value">${yen(amt - best.result.disc)}</span></div>
+      <div class="sum-row"><span class="label">販促システム利用料（${pct(best.result.feeRate)}）</span><span class="value fee-num">▲ ${yen(best.result.fee)}</span></div>
+      <div class="sum-row total">
+        <span class="label">施設の実質受取額</span>
+        <span class="value">${yen(amt - best.result.disc - best.result.fee)}</span>
+      </div>
+    </div>`;
+
+    html += '<p class="note">※ 通常、同一予約に複数のクーポンは適用されません。上記は最大割引のクーポンを基準に計算しています。</p>';
+  }
+
+  if (notApplied.length > 0) {
+    html += `<details style="margin-top:10px"><summary>▼ 適用不可のクーポン（${notApplied.length}件）</summary>
+      <div class="result-cards" style="margin-top:8px">`;
+    notApplied.forEach(({ coupon, result }) => {
+      html += `<div class="result-card ng">
+        <div class="rc-title">${coupon.name}</div>
+        <div class="rc-reason">✗ ${result.reason}</div>
+      </div>`;
+    });
+    html += '</div></details>';
+  }
+
+  document.getElementById('results').innerHTML = html;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  // Build dynamic panel content
+  [4, 5, 6].forEach(mo => {
+    document.getElementById(`matsuri-panel-${mo}`).innerHTML = buildMatsuriPanel(mo);
+    document.getElementById(`special-panel-${mo}`).innerHTML = buildSpecialPanel(mo);
+  });
+
+  buildGantt();
+  updateBadges();
+}
+
+init();
+</script>
+</body>
+</html>
