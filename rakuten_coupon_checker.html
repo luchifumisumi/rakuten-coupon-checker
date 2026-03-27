@@ -9,101 +9,156 @@
 body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif; background: #f0f0f0; color: #333; font-size: 13px; }
 
 /* ── Header ── */
-header { background: linear-gradient(135deg, #bf0000 0%, #8b0000 100%); color: white; padding: 10px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
-header .logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+header { background: linear-gradient(135deg, #bf0000 0%, #8b0000 100%); color: white; padding: 10px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); height: 50px; }
+header .logo { font-size: 22px; font-weight: 900; }
 header h1 { font-size: 17px; font-weight: bold; }
-header .sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+header .sub { font-size: 11px; opacity: 0.8; margin-top: 1px; }
 
 /* ── Layout ── */
 .layout { display: flex; height: calc(100vh - 50px); overflow: hidden; }
 
 /* ── Sidebar ── */
-.sidebar { width: 280px; min-width: 280px; background: #fff; border-right: 1px solid #ddd; overflow-y: auto; display: flex; flex-direction: column; }
-.sidebar-title { background: #222; color: #fff; padding: 9px 14px; font-size: 12px; font-weight: bold; letter-spacing: 0.5px; }
+.sidebar { width: 270px; min-width: 270px; background: #fff; border-right: 1px solid #ddd; overflow-y: auto; display: flex; flex-direction: column; }
+.sidebar-title { background: #222; color: #fff; padding: 9px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }
 .accordion { border-bottom: 1px solid #e8e8e8; }
-.acc-head { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; cursor: pointer; font-weight: bold; font-size: 12px; background: white; user-select: none; transition: background 0.15s; }
+.acc-head { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; cursor: pointer; font-weight: bold; font-size: 12px; background: white; user-select: none; transition: background 0.15s; }
 .acc-head:hover { background: #f7f7f7; }
-.acc-head .badge { background: #27ae60; color: white; border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: normal; min-width: 20px; text-align: center; }
+.acc-head .badge { background: #27ae60; color: white; border-radius: 10px; padding: 1px 6px; font-size: 10px; font-weight: normal; min-width: 18px; text-align: center; }
 .acc-head .badge.zero { background: #ccc; }
 .acc-arrow { font-size: 10px; color: #999; transition: transform 0.2s; }
 .acc-head.open .acc-arrow { transform: rotate(180deg); }
-.acc-body { display: none; padding: 8px 14px 12px; background: #fafafa; }
+.acc-body { display: none; padding: 6px 12px 10px; background: #fafafa; }
 .acc-body.open { display: block; }
-.section-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 8px 0 4px; }
-.section-label:first-child { margin-top: 0; }
-.chk-row { display: flex; align-items: flex-start; gap: 7px; padding: 3px 0; font-size: 12px; line-height: 1.4; }
-.chk-row input[type=checkbox] { margin-top: 1px; cursor: pointer; accent-color: #bf0000; width: 13px; height: 13px; flex-shrink: 0; }
+.slabel { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 7px 0 3px; }
+.slabel:first-child { margin-top: 0; }
+.chk-row { display: flex; align-items: flex-start; gap: 6px; padding: 2px 0; font-size: 12px; line-height: 1.4; }
+.chk-row input[type=checkbox] { margin-top: 2px; cursor: pointer; accent-color: #bf0000; width: 12px; height: 12px; flex-shrink: 0; }
 .chk-row label { cursor: pointer; flex: 1; }
-.tag { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+.tag { display: inline-block; font-size: 9px; padding: 0 4px; border-radius: 2px; margin-left: 2px; vertical-align: middle; }
 .tag-fee { background: #e8f4e8; color: #1e8449; }
 .tag-disc { background: #fef0e8; color: #c0392b; }
-
-/* ── Month tabs ── */
-.mtabs { display: flex; margin: 4px 0 8px; border-radius: 4px; overflow: hidden; border: 1px solid #ddd; }
-.mtab { flex: 1; text-align: center; padding: 4px; font-size: 11px; cursor: pointer; background: white; border: none; transition: background 0.15s; }
+.mtabs { display: flex; margin: 3px 0 7px; border-radius: 3px; overflow: hidden; border: 1px solid #ddd; }
+.mtab { flex: 1; text-align: center; padding: 3px; font-size: 11px; cursor: pointer; background: white; border: none; transition: background 0.15s; }
 .mtab.active { background: #bf0000; color: white; font-weight: bold; }
 .mtab:not(:last-child) { border-right: 1px solid #ddd; }
 .month-panel { display: none; }
 .month-panel.active { display: block; }
+.info-box { font-size:10px; color:#555; padding:3px 6px; border-radius:3px; margin-bottom:5px; }
 
-/* ── Main panel ── */
+/* ── Main ── */
 .main { flex: 1; overflow-y: auto; }
+.section { background: white; border-bottom: 2px solid #eee; padding: 14px 18px; }
+.sec-h { font-size: 13px; font-weight: bold; color: #222; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 
-/* ── Calendar/Gantt ── */
-.section { background: white; border-bottom: 2px solid #eee; padding: 16px 20px; }
-.section-h { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.section-h .icon { font-size: 16px; }
+/* ── Calendar tabs ── */
+.cal-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; align-items: center; }
+.cal-tab { padding: 6px 18px; border: 2px solid #ddd; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; background: white; transition: all 0.15s; color: #555; }
+.cal-tab.active { background: #bf0000; border-color: #bf0000; color: white; }
+.cal-tab:hover:not(.active) { border-color: #bf0000; color: #bf0000; }
 
-.gantt-wrap { overflow-x: auto; }
-.gantt { min-width: 620px; }
-.gantt-top { display: flex; margin-bottom: 4px; }
-.gantt-lbl { width: 160px; min-width: 160px; }
-.gantt-axis { flex: 1; position: relative; height: 20px; border-bottom: 1px solid #ccc; }
-.gantt-tick { position: absolute; top: 0; font-size: 10px; color: #888; padding-left: 2px; border-left: 1px solid #ddd; height: 100%; line-height: 20px; }
-.gantt-row { display: flex; align-items: center; margin-bottom: 3px; }
-.gantt-row-label { width: 160px; min-width: 160px; font-size: 11px; color: #555; padding-right: 8px; line-height: 1.3; }
-.gantt-track { flex: 1; position: relative; height: 16px; background: #f5f5f5; border-radius: 3px; }
-.gantt-bar { position: absolute; top: 0; height: 100%; border-radius: 3px; display: flex; align-items: center; padding: 0 3px; font-size: 9px; color: white; white-space: nowrap; overflow: visible; z-index: 1; }
-.gantt-bar:hover { opacity: 1 !important; z-index: 10; }
-.gantt-dot { position: absolute; top: 1px; height: calc(100% - 2px); border-radius: 2px; }
-.gantt-sep { position: absolute; top: 0; height: 100%; border-left: 1px solid #ccc; }
-.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
-.legend-color { width: 12px; height: 12px; border-radius: 2px; }
+/* ── Calendar grid ── */
+.cal-wrap { overflow-x: auto; }
+.cal-table { width: 100%; border-collapse: collapse; min-width: 400px; table-layout: fixed; }
+.cal-table th { text-align: center; padding: 6px 2px; font-size: 12px; font-weight: bold; color: #555; border-bottom: 2px solid #ddd; }
+.cal-table th.we-h { color: #c0392b; }
+.cal-table th.sa-h { color: #1a5ea8; }
+.cal-day { vertical-align: top; padding: 4px 5px; border: 1px solid #ddd; height: 72px; cursor: pointer; transition: opacity 0.12s, outline 0.12s; position: relative; }
+.cal-day:hover { opacity: 0.82; }
+.cal-day.selected { outline: 3px solid #222; outline-offset: -2px; z-index: 1; }
+.cal-day.we .day-num { color: #c0392b; }
+.cal-day.sa .day-num { color: #1a5ea8; }
+.cal-empty { background: #f8f8f8; border: 1px solid #f0f0f0; }
+.day-num { font-size: 14px; font-weight: bold; line-height: 1; margin-bottom: 4px; }
+.day-dots { display: flex; flex-wrap: wrap; gap: 2px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.gap-mark { font-size: 9px; background: #e53935; color: white; border-radius: 2px; padding: 0 2px; line-height: 1.4; }
 
-/* ── Simulator ── */
-.sim-wrap { padding: 16px 20px; }
+/* Calendar day colors */
+.cal-day.covered-4 { background: #2e7d32 !important; }
+.cal-day.covered-4 .day-num { color: white; }
+.cal-day.covered-3 { background: #4caf50 !important; }
+.cal-day.covered-3 .day-num { color: white; }
+.cal-day.covered-2 { background: #a5d6a7 !important; }
+.cal-day.covered-1 { background: #e8f5e9 !important; }
+.cal-day.gap { background: repeating-linear-gradient(135deg, #ffcdd2, #ffcdd2 4px, #ffebee 4px, #ffebee 9px) !important; }
+.cal-day.no-enrollment { background: #f9f9f9 !important; }
+
+/* ── Legend ── */
+.legend-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; font-size: 11px; color: #555; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-color { width: 14px; height: 14px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.15); }
+.legend-color.gap { background: repeating-linear-gradient(135deg, #ffcdd2, #ffcdd2 4px, #ffebee 4px, #ffebee 9px); }
+
+/* ── Gap summary ── */
+.gap-summary { margin-top: 10px; padding: 8px 12px; border-radius: 5px; font-size: 12px; }
+.gap-summary.warn { background: #fff3e0; border: 1px solid #ffb74d; color: #e65100; }
+.gap-summary.ok { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
+.gap-summary.neutral { background: #f5f5f5; border: 1px solid #ddd; color: #888; }
+
+/* ── Detail panel ── */
+#detailSection { display: none; border-top: 3px solid #333; }
+.detail-date-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.detail-date { font-size: 16px; font-weight: bold; }
+.we-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+.we-badge.weekend { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+.we-badge.weekday { background: #e8f0fe; color: #1a73e8; border: 1px solid #90caf9; }
+.gap-alert { background: #ffebee; border: 1px solid #ef9a9a; border-radius: 5px; padding: 8px 12px; color: #c62828; font-size: 12px; margin-bottom: 10px; }
+
+/* Coverage cards */
+.coverage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.cov-card { border: 1px solid #ddd; border-radius: 6px; padding: 9px 10px; }
+.cov-card.ok { border-left: 4px solid; background: #f8fff9; }
+.cov-card.ng { background: #fafafa; opacity: 0.7; }
+.cov-card-head { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 12px; margin-bottom: 5px; }
+.cov-status { font-size: 10px; font-weight: normal; padding: 1px 6px; border-radius: 10px; }
+.cov-status.ok { background: #d4edda; color: #155724; }
+.cov-status.ng { background: #f8d7da; color: #721c24; }
+.coupon-chip { font-size: 10px; border: 1px solid; border-radius: 3px; padding: 1px 5px; margin: 2px 2px 0 0; display: inline-block; line-height: 1.4; }
+.cov-reason { font-size: 10px; color: #888; margin-top: 3px; }
+.prog-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* Amount table */
+.amount-bar { margin-top: 14px; border-top: 1px solid #eee; padding-top: 12px; }
+.amount-bar-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.amount-bar-head strong { font-size: 13px; }
+.rank-sel { border: 1px solid #ccc; border-radius: 4px; padding: 3px 6px; font-size: 12px; cursor: pointer; }
+.amt-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.amt-table th { background: #f5f5f5; padding: 5px 8px; text-align: left; border-bottom: 2px solid #ddd; font-size: 11px; white-space: nowrap; }
+.amt-table td { padding: 5px 8px; border-bottom: 1px solid #f0f0f0; }
+.amt-table tr:hover td { background: rgba(0,0,0,0.02); }
+.amt-table .best-badge { display: inline-block; font-size: 9px; padding: 0 4px; border-radius: 2px; margin-left: 4px; }
+.disc-num { color: #c0392b; font-weight: bold; }
+.fee-num { color: #1a5ea8; }
+.net-num { font-weight: bold; }
+.no-coupon { color: #bbb; }
+
+/* Visual bar inside amount table */
+.disc-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.disc-bar { height: 8px; border-radius: 2px; min-width: 2px; display: inline-block; }
+
+/* ── Simulation ── */
 .form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
 .form-group label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 4px; }
 .form-group input, .form-group select { width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 6px 8px; font-size: 13px; transition: border 0.15s; }
 .form-group input:focus, .form-group select:focus { outline: none; border-color: #bf0000; box-shadow: 0 0 0 2px rgba(191,0,0,0.1); }
-.sim-btn { background: #bf0000; color: white; border: none; padding: 9px 24px; border-radius: 5px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.15s; }
+.sim-btn { background: #bf0000; color: white; border: none; padding: 9px 22px; border-radius: 5px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.15s; }
 .sim-btn:hover { background: #9a0000; }
-
-/* ── Results ── */
 .results { margin-top: 14px; }
-.result-section-title { font-size: 12px; font-weight: bold; color: #555; margin-bottom: 8px; }
-.result-cards { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-.result-card { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; flex: 1; min-width: 220px; max-width: 340px; }
-.result-card.ok { border-left: 4px solid #27ae60; background: #f8fff9; }
-.result-card.ng { border-left: 4px solid #ccc; opacity: 0.65; }
-.result-card .rc-title { font-weight: bold; font-size: 12px; margin-bottom: 6px; }
-.result-card .rc-row { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
-.result-card .rc-row .num { font-weight: bold; }
-.result-card .rc-reason { font-size: 11px; color: #888; margin-top: 2px; line-height: 1.4; }
-.disc-num { color: #c0392b; }
-.fee-num { color: #1a5ea8; }
-
+.res-section-title { font-size: 12px; font-weight: bold; color: #555; margin-bottom: 8px; }
+.res-cards { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.res-card { border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; flex: 1; min-width: 200px; max-width: 320px; }
+.res-card.ok { border-left: 4px solid #27ae60; background: #f8fff9; }
+.res-card.ng { border-left: 4px solid #ccc; opacity: 0.6; }
+.res-card .rc-title { font-weight: bold; font-size: 12px; margin-bottom: 6px; }
+.res-card .rc-row { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+.res-card .rc-reason { font-size: 11px; color: #888; margin-top: 2px; line-height: 1.4; }
 .summary-box { border: 2px solid #bf0000; border-radius: 8px; padding: 14px 16px; background: #fffafa; margin-top: 12px; }
 .summary-box h3 { font-size: 13px; font-weight: bold; color: #bf0000; margin-bottom: 10px; }
 .sum-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
 .sum-row.total { border-top: 1px solid #ddd; margin-top: 6px; padding-top: 8px; font-size: 15px; font-weight: bold; }
-.sum-row .label { color: #555; }
-.sum-row .value { font-weight: bold; }
-.no-result { text-align: center; color: #888; padding: 24px; background: white; border-radius: 6px; border: 1px dashed #ddd; font-size: 13px; }
-.note { font-size: 11px; color: #888; margin-top: 8px; line-height: 1.5; }
+.no-result { text-align: center; color: #888; padding: 20px; background: white; border-radius: 6px; border: 1px dashed #ddd; font-size: 13px; }
+.note-txt { font-size: 11px; color: #888; margin-top: 8px; line-height: 1.5; }
 details summary { cursor: pointer; font-size: 12px; color: #888; padding: 8px 0; }
-details summary:hover { color: #555; }
 </style>
 </head>
 <body>
@@ -117,72 +172,40 @@ details summary:hover { color: #555; }
 </header>
 
 <div class="layout">
+
   <!-- ===== Sidebar ===== -->
   <div class="sidebar">
     <div class="sidebar-title">▼ 参加クーポン設定</div>
 
-    <!-- 春夏フェア -->
     <div class="accordion" id="acc-harnatsu">
       <div class="acc-head" onclick="toggleAcc('harnatsu')">
         <span>🌸 春夏フェア</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="badge zero" id="badge-harnatsu">0</span>
-          <span class="acc-arrow">▼</span>
-        </div>
+        <div style="display:flex;align-items:center;gap:5px"><span class="badge zero" id="badge-harnatsu">0</span><span class="acc-arrow">▼</span></div>
       </div>
       <div class="acc-body" id="body-harnatsu">
-        <div class="section-label">割引プラン選択</div>
-        <div class="chk-row">
-          <input type="checkbox" id="harnatsu15" onchange="updateState('harnatsu15',this.checked)">
-          <label for="harnatsu15">15%OFF <span class="tag tag-disc">上限¥23,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥10,000 / 宿泊3/31〜2027/2/28</span></label>
-        </div>
-        <div class="chk-row">
-          <input type="checkbox" id="harnatsu10" onchange="updateState('harnatsu10',this.checked)">
-          <label for="harnatsu10">10%OFF <span class="tag tag-disc">上限¥10,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥6,000 / 除外日：5/1〜5/5</span></label>
-        </div>
-        <div style="font-size:10px;color:#888;margin-top:6px;padding:4px 6px;background:#f0f0f0;border-radius:3px">
-          予約受付：3/31 10:00〜4/20 09:59
-        </div>
+        <div class="info-box" style="background:#fef0f0">予約受付：3/31 10:00〜4/20 09:59 / 宿泊：3/31〜2027/2/28 / 除外：5/1〜5/5</div>
+        <div class="chk-row"><input type="checkbox" id="harnatsu15" onchange="updateState('harnatsu15',this.checked)"><label for="harnatsu15">15%OFF <span class="tag tag-disc">上限¥23,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥10,000</span></label></div>
+        <div class="chk-row"><input type="checkbox" id="harnatsu10" onchange="updateState('harnatsu10',this.checked)"><label for="harnatsu10">10%OFF <span class="tag tag-disc">上限¥10,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥6,000</span></label></div>
       </div>
     </div>
 
-    <!-- 5と0のつく日 -->
     <div class="accordion" id="acc-gojo">
       <div class="acc-head" onclick="toggleAcc('gojo')">
-        <span>5️⃣ 5と0のつく日（高級・温泉宿）</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="badge zero" id="badge-gojo">0</span>
-          <span class="acc-arrow">▼</span>
-        </div>
+        <span>5️⃣ 5と0のつく日（高級・温泉）</span>
+        <div style="display:flex;align-items:center;gap:5px"><span class="badge zero" id="badge-gojo">0</span><span class="acc-arrow">▼</span></div>
       </div>
       <div class="acc-body" id="body-gojo">
-        <div style="font-size:10px;color:#555;margin-bottom:6px;padding:4px 6px;background:#e8f0fb;border-radius:3px">
-          10%OFF（上限¥10,000・最低¥10,000・手数料5%）<br>
-          各月5・10・15・20・25・30日の0時から48時間（6月は72時間）以内の予約が対象
-        </div>
-        <div class="chk-row">
-          <input type="checkbox" id="gojo_4" onchange="updateState('gojo_4',this.checked)">
-          <label for="gojo_4">4月（除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22）</label>
-        </div>
-        <div class="chk-row">
-          <input type="checkbox" id="gojo_5" onchange="updateState('gojo_5',this.checked)">
-          <label for="gojo_5">5月（除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11）</label>
-        </div>
-        <div class="chk-row">
-          <input type="checkbox" id="gojo_6" onchange="updateState('gojo_6',this.checked)">
-          <label for="gojo_6">6月（除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22）</label>
-        </div>
+        <div class="info-box" style="background:#e8f0fb">10%OFF / 上限¥10,000 / 最低¥10,000 / 手数料5%<br>各月5・10・15・20・25・30日 0時から48h（6月は72h）予約</div>
+        <div class="chk-row"><input type="checkbox" id="gojo_4" onchange="updateState('gojo_4',this.checked)"><label for="gojo_4">4月　<span style="font-size:10px;color:#888">除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22</span></label></div>
+        <div class="chk-row"><input type="checkbox" id="gojo_5" onchange="updateState('gojo_5',this.checked)"><label for="gojo_5">5月　<span style="font-size:10px;color:#888">除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11</span></label></div>
+        <div class="chk-row"><input type="checkbox" id="gojo_6" onchange="updateState('gojo_6',this.checked)"><label for="gojo_6">6月　<span style="font-size:10px;color:#888">除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22</span></label></div>
       </div>
     </div>
 
-    <!-- クーポン祭 -->
     <div class="accordion" id="acc-matsuri">
       <div class="acc-head" onclick="toggleAcc('matsuri')">
-        <span>🎉 クーポン祭（高級・温泉宿）</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="badge zero" id="badge-matsuri">0</span>
-          <span class="acc-arrow">▼</span>
-        </div>
+        <span>🎉 クーポン祭（高級・温泉）</span>
+        <div style="display:flex;align-items:center;gap:5px"><span class="badge zero" id="badge-matsuri">0</span><span class="acc-arrow">▼</span></div>
       </div>
       <div class="acc-body" id="body-matsuri">
         <div class="mtabs">
@@ -196,14 +219,10 @@ details summary:hover { color: #555; }
       </div>
     </div>
 
-    <!-- スペシャルWeek -->
     <div class="accordion" id="acc-special">
       <div class="acc-head" onclick="toggleAcc('special')">
-        <span>⭐ スペシャルクーポンWeek（月末企画）</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="badge zero" id="badge-special">0</span>
-          <span class="acc-arrow">▼</span>
-        </div>
+        <span>⭐ スペシャルWeek（月末企画）</span>
+        <div style="display:flex;align-items:center;gap:5px"><span class="badge zero" id="badge-special">0</span><span class="acc-arrow">▼</span></div>
       </div>
       <div class="acc-body" id="body-special">
         <div class="mtabs">
@@ -220,18 +239,37 @@ details summary:hover { color: #555; }
 
   <!-- ===== Main ===== -->
   <div class="main">
-    <!-- Calendar -->
-    <div class="section">
-      <div class="section-h"><span class="icon">📅</span>予約受付期間カレンダー（2026年4〜6月）</div>
-      <div class="gantt-wrap">
-        <div class="gantt" id="gantt"></div>
+
+    <!-- Calendar section -->
+    <div class="section" id="calSection">
+      <div class="sec-h">📅 宿泊対象日カレンダー <span style="font-size:11px;font-weight:normal;color:#888">日付をクリックするとクーポン詳細が表示されます</span></div>
+      <div class="cal-tabs" id="calTabs"></div>
+      <div class="cal-wrap"><div id="calGrid"></div></div>
+      <div class="legend-wrap">
+        <strong style="font-size:11px">カバー状況：</strong>
+        <div class="legend-item"><div class="legend-color" style="background:#e8f5e9"></div>1プログラム</div>
+        <div class="legend-item"><div class="legend-color" style="background:#a5d6a7"></div>2プログラム</div>
+        <div class="legend-item"><div class="legend-color" style="background:#4caf50"></div>3プログラム</div>
+        <div class="legend-item"><div class="legend-color" style="background:#2e7d32"></div>4プログラム</div>
+        <div class="legend-item"><div class="legend-color gap"></div>空白（ギャップ）</div>
+        <span style="font-size:11px;color:#555;margin-left:10px">●プログラムカラー：</span>
+        <div class="legend-item"><div class="legend-color" style="background:#e74c3c"></div>春夏</div>
+        <div class="legend-item"><div class="legend-color" style="background:#3498db"></div>5と0</div>
+        <div class="legend-item"><div class="legend-color" style="background:#9b59b6"></div>クーポン祭</div>
+        <div class="legend-item"><div class="legend-color" style="background:#27ae60"></div>スペシャルWeek</div>
       </div>
-      <div class="legend" id="legend"></div>
+      <div id="gapSummary"></div>
     </div>
 
-    <!-- Simulator -->
-    <div class="section sim-wrap">
-      <div class="section-h"><span class="icon">🔍</span>クーポン適用シミュレーション</div>
+    <!-- Detail panel (revealed on click) -->
+    <div class="section" id="detailSection">
+      <div class="sec-h">🔎 クーポン詳細 <span id="detailDateLabel" style="font-size:12px;font-weight:normal;color:#666"></span></div>
+      <div id="detailContent"></div>
+    </div>
+
+    <!-- Simulation -->
+    <div class="section">
+      <div class="sec-h">🔍 クーポン適用シミュレーション</div>
       <div class="form-grid">
         <div class="form-group">
           <label>予約日時</label>
@@ -257,8 +295,9 @@ details summary:hover { color: #555; }
       <button class="sim-btn" onclick="simulate()">▶ シミュレーション実行</button>
       <div class="results" id="results"></div>
     </div>
-  </div>
-</div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
 
 <script>
 'use strict';
@@ -266,27 +305,21 @@ details summary:hover { color: #555; }
 // ============================================================
 // HELPERS
 // ============================================================
-function d(y, m, day, h = 0, mi = 0) {
-  return new Date(y, m - 1, day, h, mi, 0);
-}
+function d(y, m, day, h = 0, mi = 0) { return new Date(y, m - 1, day, h, mi, 0); }
 
 function sameDay(a, b) {
   return a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate();
+    a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
-
 function isDateInRange(date, start, end) {
   const dd = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   const ss = new Date(start.getFullYear(), start.getMonth(), start.getDate());
   const ee = new Date(end.getFullYear(), end.getMonth(), end.getDate());
   return dd >= ss && dd <= ee;
 }
-
 function isExcluded(date, ranges) {
   return ranges.some(([s, e]) => isDateInRange(date, s, e));
 }
-
 function isInGojoWindow(rd, month) {
   const hours = month === 6 ? 72 : 48;
   const gojoDays = [5, 10, 15, 20, 25, 30];
@@ -298,81 +331,58 @@ function isInGojoWindow(rd, month) {
     return rd >= start && rd < end;
   });
 }
-
 function isWeekend(date) {
   const dow = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getDay();
-  return dow === 5 || dow === 6; // Fri or Sat
+  return dow === 5 || dow === 6;
 }
-
-function yen(n) {
-  return '¥' + Math.round(n).toLocaleString('ja-JP');
-}
-
-function pct(n) {
-  return (n * 100).toFixed(0) + '%';
-}
+function yen(n) { return '¥' + Math.round(n).toLocaleString('ja-JP'); }
+function pct(n) { return (n * 100).toFixed(0) + '%'; }
 
 // ============================================================
 // EXCLUDED DATE RANGES
 // ============================================================
 const EX = {
-  gojoMatsuri_4: [
-    [d(2026,5,1), d(2026,5,5)],
-    [d(2026,7,17), d(2026,7,19)],
-    [d(2026,8,7), d(2026,8,15)],
-    [d(2026,9,18), d(2026,9,22)]
-  ],
-  gojoMatsuri_5: [
-    [d(2026,7,17), d(2026,7,19)],
-    [d(2026,8,7), d(2026,8,15)],
-    [d(2026,9,18), d(2026,9,22)],
-    [d(2026,10,9), d(2026,10,11)]
-  ],
-  gojoMatsuri_6: [
-    [d(2026,7,17), d(2026,7,19)],
-    [d(2026,8,7), d(2026,8,15)],
-    [d(2026,9,18), d(2026,9,22)],
-    [d(2026,10,9), d(2026,10,11)],
-    [d(2026,11,20), d(2026,11,22)]
-  ],
-  harnatsu: [
-    [d(2026,5,1), d(2026,5,5)]
-  ],
-  special_4: [
-    [d(2026,5,1), d(2026,5,5)],
-    [d(2026,8,13), d(2026,8,15)],
-    [d(2026,9,18), d(2026,9,22)]
-  ],
-  special_56: [
-    [d(2026,8,13), d(2026,8,15)],
-    [d(2026,9,18), d(2026,9,22)]
-  ]
+  gojoMatsuri_4: [[d(2026,5,1),d(2026,5,5)],[d(2026,7,17),d(2026,7,19)],[d(2026,8,7),d(2026,8,15)],[d(2026,9,18),d(2026,9,22)]],
+  gojoMatsuri_5: [[d(2026,7,17),d(2026,7,19)],[d(2026,8,7),d(2026,8,15)],[d(2026,9,18),d(2026,9,22)],[d(2026,10,9),d(2026,10,11)]],
+  gojoMatsuri_6: [[d(2026,7,17),d(2026,7,19)],[d(2026,8,7),d(2026,8,15)],[d(2026,9,18),d(2026,9,22)],[d(2026,10,9),d(2026,10,11)],[d(2026,11,20),d(2026,11,22)]],
+  harnatsu: [[d(2026,5,1),d(2026,5,5)]],
+  special_4: [[d(2026,5,1),d(2026,5,5)],[d(2026,8,13),d(2026,8,15)],[d(2026,9,18),d(2026,9,22)]],
+  special_56: [[d(2026,8,13),d(2026,8,15)],[d(2026,9,18),d(2026,9,22)]],
 };
 
 // ============================================================
 // STATE
 // ============================================================
 const state = {
-  harnatsu15: false, harnatsu10: false,
-  gojo_4: false, gojo_5: false, gojo_6: false,
-  matsuri_4_all: false, matsuri_4_hd1000: false, matsuri_4_hd2500: false, matsuri_4_hd4000: false,
-  matsuri_4_we1500: false, matsuri_4_we3000: false, matsuri_4_we4500: false,
-  matsuri_5_all: false, matsuri_5_hd1000: false, matsuri_5_hd2500: false, matsuri_5_hd4000: false,
-  matsuri_5_we1500: false, matsuri_5_we3000: false, matsuri_5_we4500: false,
-  matsuri_6_all: false, matsuri_6_hd1000: false, matsuri_6_hd2500: false, matsuri_6_hd4000: false,
-  matsuri_6_we1500: false, matsuri_6_we3000: false, matsuri_6_we4500: false,
-  special_4_20: false, special_4_10rk: false, special_4_10nk: false,
-  special_5_20: false, special_5_10rk: false, special_5_10nk: false,
-  special_6_20: false, special_6_10rk: false, special_6_10nk: false,
+  harnatsu15:false, harnatsu10:false,
+  gojo_4:false, gojo_5:false, gojo_6:false,
+  matsuri_4_all:false, matsuri_4_hd1000:false, matsuri_4_hd2500:false, matsuri_4_hd4000:false,
+  matsuri_4_we1500:false, matsuri_4_we3000:false, matsuri_4_we4500:false,
+  matsuri_5_all:false, matsuri_5_hd1000:false, matsuri_5_hd2500:false, matsuri_5_hd4000:false,
+  matsuri_5_we1500:false, matsuri_5_we3000:false, matsuri_5_we4500:false,
+  matsuri_6_all:false, matsuri_6_hd1000:false, matsuri_6_hd2500:false, matsuri_6_hd4000:false,
+  matsuri_6_we1500:false, matsuri_6_we3000:false, matsuri_6_we4500:false,
+  special_4_20:false, special_4_10rk:false, special_4_10nk:false,
+  special_5_20:false, special_5_10rk:false, special_5_10nk:false,
+  special_6_20:false, special_6_10rk:false, special_6_10nk:false,
 };
+
+const COLORS = { harnatsu:'#e74c3c', gojo:'#3498db', matsuri:'#9b59b6', special:'#27ae60' };
 
 function updateState(key, val) {
   state[key] = val;
   updateBadges();
+  // Re-clamp current month if it's beyond the new max stay range
+  const months = getCalendarMonths();
+  const inRange = months.some(m => m.year === calYear && m.month === calMonth);
+  if (!inRange && months.length) { calYear = months[0].year; calMonth = months[0].month; }
+  renderCalendarTabs();
+  renderCalendar();
+  if (selectedDate) renderDetailPanel(selectedDate);
 }
 
 // ============================================================
-// ACCORDION
+// SIDEBAR ACCORDION
 // ============================================================
 function toggleAcc(id) {
   const head = document.querySelector(`#acc-${id} .acc-head`);
@@ -380,458 +390,589 @@ function toggleAcc(id) {
   head.classList.toggle('open');
   body.classList.toggle('open');
 }
-
-// Month tabs
 const mtabState = { matsuri: 4, special: 4 };
-
 function setMtab(prog, month) {
   mtabState[prog] = month;
   const body = document.getElementById(`body-${prog}`);
-  body.querySelectorAll('.mtab').forEach((btn, i) => {
-    btn.classList.toggle('active', [4,5,6][i] === month);
-  });
-  body.querySelectorAll('.month-panel').forEach((panel, i) => {
-    panel.classList.toggle('active', [4,5,6][i] === month);
-  });
+  body.querySelectorAll('.mtab').forEach((btn, i) => btn.classList.toggle('active', [4,5,6][i] === month));
+  body.querySelectorAll('.month-panel').forEach((p, i) => p.classList.toggle('active', [4,5,6][i] === month));
 }
 
-// ============================================================
-// BADGE COUNTS
-// ============================================================
-function updateBadges() {
-  const counts = { harnatsu: 0, gojo: 0, matsuri: 0, special: 0 };
-  if (state.harnatsu15) counts.harnatsu++;
-  if (state.harnatsu10) counts.harnatsu++;
-  [4,5,6].forEach(mo => {
-    if (state[`gojo_${mo}`]) counts.gojo++;
-    ['all','hd1000','hd2500','hd4000','we1500','we3000','we4500'].forEach(k => {
-      if (state[`matsuri_${mo}_${k}`]) counts.matsuri++;
-    });
-    ['20','10rk','10nk'].forEach(k => {
-      if (state[`special_${mo}_${k}`]) counts.special++;
-    });
-  });
-  Object.keys(counts).forEach(k => {
-    const badge = document.getElementById(`badge-${k}`);
-    if (badge) {
-      badge.textContent = counts[k];
-      badge.className = 'badge' + (counts[k] === 0 ? ' zero' : '');
-    }
-  });
-}
-
-// ============================================================
-// BUILD クーポン祭 & スペシャルWeek PANELS
-// ============================================================
 function buildMatsuriPanel(mo) {
-  const windows = { 4: '4/2〜5/1', 5: '5/1〜6/2', 6: '6/2〜7/2' };
-  const excluded_text = {
-    4: '除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22',
-    5: '除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11',
-    6: '除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22'
-  };
-
+  const wl = { 4:'4/2〜5/1', 5:'5/1〜6/2', 6:'6/2〜7/2' };
+  const ex = { 4:'除外：5/1〜5/5, 7/17〜19, 8/7〜15, 9/18〜22', 5:'除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11', 6:'除外：7/17〜19, 8/7〜15, 9/18〜22, 10/9〜11, 11/20〜22' };
   const rows = [
-    { key: `matsuri_${mo}_all`,    label: '全会員 ¥500<br><span style="font-size:10px;color:#888">最低金額なし・手数料5%</span>', section: null },
-    { section: '平日割引（日〜木）・手数料5%' },
-    { key: `matsuri_${mo}_hd4000`, label: 'ダイヤモンド ¥4,000<br><span style="font-size:10px;color:#888">最低¥35,000</span>' },
-    { key: `matsuri_${mo}_hd2500`, label: 'D/P ¥2,500<br><span style="font-size:10px;color:#888">最低¥20,000</span>' },
-    { key: `matsuri_${mo}_hd1000`, label: 'D/P ¥1,000<br><span style="font-size:10px;color:#888">最低¥8,000</span>' },
-    { section: '週末割引（金・土）・手数料3%' },
-    { key: `matsuri_${mo}_we4500`, label: 'ダイヤモンド ¥4,500<br><span style="font-size:10px;color:#888">最低¥40,000</span>' },
-    { key: `matsuri_${mo}_we3000`, label: 'D/P ¥3,000<br><span style="font-size:10px;color:#888">最低¥25,000</span>' },
-    { key: `matsuri_${mo}_we1500`, label: 'D/P ¥1,500<br><span style="font-size:10px;color:#888">最低¥12,000</span>' },
+    { key:`matsuri_${mo}_all`,    txt:'全会員 ¥500 <span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低金額なし</span>', sec:null },
+    { sec:'平日割引（日〜木）手数料5%' },
+    { key:`matsuri_${mo}_hd4000`, txt:'ダイヤモンド ¥4,000<br><span style="font-size:10px;color:#888">最低¥35,000</span>' },
+    { key:`matsuri_${mo}_hd2500`, txt:'D/P ¥2,500<br><span style="font-size:10px;color:#888">最低¥20,000</span>' },
+    { key:`matsuri_${mo}_hd1000`, txt:'D/P ¥1,000<br><span style="font-size:10px;color:#888">最低¥8,000</span>' },
+    { sec:'週末割引（金・土）手数料3%' },
+    { key:`matsuri_${mo}_we4500`, txt:'ダイヤモンド ¥4,500<br><span style="font-size:10px;color:#888">最低¥40,000</span>' },
+    { key:`matsuri_${mo}_we3000`, txt:'D/P ¥3,000<br><span style="font-size:10px;color:#888">最低¥25,000</span>' },
+    { key:`matsuri_${mo}_we1500`, txt:'D/P ¥1,500<br><span style="font-size:10px;color:#888">最低¥12,000</span>' },
   ];
-
-  let html = `<div style="font-size:10px;color:#555;padding:4px 6px;background:#f0e8fb;border-radius:3px;margin-bottom:6px">
-    予約受付：${windows[mo]}<br>${excluded_text[mo]}
-  </div>`;
-
+  let html = `<div class="info-box" style="background:#f0e8fb">予約受付：${wl[mo]}<br>${ex[mo]}</div>`;
   rows.forEach(r => {
-    if (r.section) {
-      html += `<div class="section-label">${r.section}</div>`;
-    } else {
-      html += `<div class="chk-row">
-        <input type="checkbox" id="${r.key}" onchange="updateState('${r.key}',this.checked)">
-        <label for="${r.key}">${r.label}</label>
-      </div>`;
-    }
+    if (r.sec) { html += `<div class="slabel">${r.sec}</div>`; }
+    else { html += `<div class="chk-row"><input type="checkbox" id="${r.key}" onchange="updateState('${r.key}',this.checked)"><label for="${r.key}">${r.txt}</label></div>`; }
   });
-
   return html;
 }
 
 function buildSpecialPanel(mo) {
-  const configs = {
-    4: { win: '4/20 10:00〜5/1 09:59', stay: '4/20〜2027/3/31' },
-    5: { win: '5/20 10:00〜6/1 09:59',  stay: '5/20〜2027/4/30' },
-    6: { win: '6/19 10:00〜6/30 23:59', stay: '6/19〜2027/5/31' },
-  };
-  const c = configs[mo];
-  const excluded_rk = mo === 4 ? '5/1〜5/5, 8/13〜15, 9/18〜22' : '8/13〜15, 9/18〜22';
-
-  return `<div style="font-size:10px;color:#555;padding:4px 6px;background:#e8f4e8;border-radius:3px;margin-bottom:6px">
-    予約受付：${c.win}<br>宿泊対象期間：${c.stay}<br>連休除外日：${excluded_rk}
-  </div>
-  <div class="chk-row">
-    <input type="checkbox" id="special_${mo}_20" onchange="updateState('special_${mo}_20',this.checked)">
-    <label for="special_${mo}_20">20%OFF <span class="tag tag-disc">上限¥15,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥30,000 / 連休除外あり</span></label>
-  </div>
-  <div class="chk-row">
-    <input type="checkbox" id="special_${mo}_10rk" onchange="updateState('special_${mo}_10rk',this.checked)">
-    <label for="special_${mo}_10rk">10%OFF（連休除外あり）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label>
-  </div>
-  <div class="chk-row">
-    <input type="checkbox" id="special_${mo}_10nk" onchange="updateState('special_${mo}_10nk',this.checked)">
-    <label for="special_${mo}_10nk">10%OFF（除外日なし）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label>
-  </div>`;
+  const cfg = { 4:{win:'4/20 10:00〜5/1 09:59',stay:'4/20〜2027/3/31'}, 5:{win:'5/20 10:00〜6/1 09:59',stay:'5/20〜2027/4/30'}, 6:{win:'6/19 10:00〜6/30 23:59',stay:'6/19〜2027/5/31'} };
+  const exTxt = mo===4 ? '5/1〜5/5, 8/13〜15, 9/18〜22' : '8/13〜15, 9/18〜22';
+  return `<div class="info-box" style="background:#e8f4e8">予約受付：${cfg[mo].win}<br>宿泊：${cfg[mo].stay}<br>連休除外：${exTxt}</div>
+  <div class="chk-row"><input type="checkbox" id="special_${mo}_20" onchange="updateState('special_${mo}_20',this.checked)"><label for="special_${mo}_20">20%OFF <span class="tag tag-disc">上限¥15,000</span><span class="tag tag-fee">手数料5%</span><br><span style="font-size:10px;color:#888">最低¥30,000 / 連休除外あり</span></label></div>
+  <div class="chk-row"><input type="checkbox" id="special_${mo}_10rk" onchange="updateState('special_${mo}_10rk',this.checked)"><label for="special_${mo}_10rk">10%OFF（連休除外あり）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label></div>
+  <div class="chk-row"><input type="checkbox" id="special_${mo}_10nk" onchange="updateState('special_${mo}_10nk',this.checked)"><label for="special_${mo}_10nk">10%OFF（除外日なし）<span class="tag tag-disc">上限¥5,000</span><span class="tag tag-fee">手数料5%</span></label></div>`;
 }
 
-// ============================================================
-// GANTT CHART
-// ============================================================
-const GANTT_START = new Date(2026, 3, 1); // Apr 1
-const GANTT_DAYS = 91; // Apr 1 – Jun 30
-
-function dayOff(date) {
-  const dd = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  return Math.round((dd - GANTT_START) / 86400000);
-}
-
-function toPct(date) {
-  return Math.max(0, Math.min(100, (dayOff(date) / GANTT_DAYS) * 100));
-}
-
-function widthPct(start, end) {
-  const s = Math.max(0, dayOff(start));
-  const e = Math.min(GANTT_DAYS, dayOff(end));
-  return Math.max(0, ((e - s) / GANTT_DAYS) * 100);
-}
-
-const COLORS = {
-  harnatsu: '#e74c3c',
-  gojo: '#3498db',
-  matsuri: '#9b59b6',
-  special: '#27ae60',
-};
-
-function buildGantt() {
-  const ganttRows = [
-    {
-      label: '春夏フェア',
-      color: COLORS.harnatsu,
-      bars: [{ start: d(2026,3,31), end: d(2026,4,20), tip: '予約受付期間' }]
-    },
-    {
-      label: '5と0のつく日 4月',
-      color: COLORS.gojo,
-      gojoDots: 4
-    },
-    {
-      label: '5と0のつく日 5月',
-      color: COLORS.gojo,
-      gojoDots: 5
-    },
-    {
-      label: '5と0のつく日 6月',
-      color: COLORS.gojo,
-      gojoDots: 6,
-      gojoH: 72
-    },
-    {
-      label: 'クーポン祭 4月',
-      color: COLORS.matsuri,
-      bars: [{ start: d(2026,4,2), end: d(2026,5,1), tip: '4/2〜5/1' }]
-    },
-    {
-      label: 'クーポン祭 5月',
-      color: COLORS.matsuri,
-      bars: [{ start: d(2026,5,1), end: d(2026,6,2), tip: '5/1〜6/2' }]
-    },
-    {
-      label: 'クーポン祭 6月',
-      color: COLORS.matsuri,
-      bars: [{ start: d(2026,6,2), end: d(2026,6,30), tip: '6/2〜7/2' }]
-    },
-    {
-      label: 'スペシャルWeek 4月',
-      color: COLORS.special,
-      bars: [{ start: d(2026,4,20), end: d(2026,5,1), tip: '4/20 10:00〜5/1 09:59' }]
-    },
-    {
-      label: 'スペシャルWeek 5月',
-      color: COLORS.special,
-      bars: [{ start: d(2026,5,20), end: d(2026,6,1), tip: '5/20 10:00〜6/1 09:59' }]
-    },
-    {
-      label: 'スペシャルWeek 6月',
-      color: COLORS.special,
-      bars: [{ start: d(2026,6,19), end: d(2026,6,30), tip: '6/19 10:00〜6/30 23:59' }]
-    },
-  ];
-
-  // Build axis ticks
-  const ticks = [];
-  const tickDates = [
-    { date: new Date(2026,3,1), label: '4/1' },
-    { date: new Date(2026,3,15), label: '4/15' },
-    { date: new Date(2026,4,1), label: '5/1' },
-    { date: new Date(2026,4,15), label: '5/15' },
-    { date: new Date(2026,5,1), label: '6/1' },
-    { date: new Date(2026,5,15), label: '6/15' },
-    { date: new Date(2026,5,30), label: '6/30' },
-  ];
-  let axisHtml = '<div style="display:flex;margin-bottom:4px;">'
-    + '<div style="width:160px;min-width:160px;font-size:10px;color:#888;text-align:right;padding-right:6px">プログラム</div>'
-    + '<div style="flex:1;position:relative;height:20px;border-bottom:1px solid #ccc;">';
-  tickDates.forEach(t => {
-    const left = toPct(t.date);
-    axisHtml += `<div style="position:absolute;left:${left}%;font-size:10px;color:#888;padding-left:2px;border-left:1px solid #ddd;height:100%;line-height:20px">${t.label}</div>`;
+function updateBadges() {
+  const counts = { harnatsu:0, gojo:0, matsuri:0, special:0 };
+  if (state.harnatsu15) counts.harnatsu++;
+  if (state.harnatsu10) counts.harnatsu++;
+  [4,5,6].forEach(mo => {
+    if (state[`gojo_${mo}`]) counts.gojo++;
+    ['all','hd1000','hd2500','hd4000','we1500','we3000','we4500'].forEach(k => { if (state[`matsuri_${mo}_${k}`]) counts.matsuri++; });
+    ['20','10rk','10nk'].forEach(k => { if (state[`special_${mo}_${k}`]) counts.special++; });
   });
-  axisHtml += '</div></div>';
-
-  let rowsHtml = '';
-  ganttRows.forEach(row => {
-    let barsHtml = '';
-
-    if (row.gojoDots !== undefined) {
-      // Gojo day dots/bars
-      const mo = row.gojoDots;
-      const hours = row.gojoH || 48;
-      const gojoDays = [5, 10, 15, 20, 25, 30];
-      gojoDays.forEach(day => {
-        const maxDay = new Date(2026, mo, 0).getDate();
-        if (day > maxDay) return;
-        const start = new Date(2026, mo - 1, day);
-        const end = new Date(start.getTime() + hours * 3600000);
-        const left = toPct(start);
-        const w = Math.max(0.8, widthPct(start, end));
-        barsHtml += `<div class="gantt-dot" style="left:${left}%;width:${w}%;background:${row.color};opacity:0.7" title="${mo}/${day} 〜 ${hours}h"></div>`;
-      });
-    } else {
-      row.bars.forEach(bar => {
-        const left = toPct(bar.start);
-        const w = widthPct(bar.start, bar.end);
-        barsHtml += `<div class="gantt-bar" style="left:${left}%;width:${w}%;background:${row.color};opacity:0.82" title="${bar.tip || ''}"></div>`;
-      });
-    }
-
-    rowsHtml += `<div class="gantt-row">
-      <div class="gantt-row-label">${row.label}</div>
-      <div class="gantt-track">${barsHtml}</div>
-    </div>`;
+  Object.keys(counts).forEach(k => {
+    const badge = document.getElementById(`badge-${k}`);
+    if (badge) { badge.textContent = counts[k]; badge.className = 'badge' + (counts[k] === 0 ? ' zero' : ''); }
   });
-
-  document.getElementById('gantt').innerHTML = axisHtml + rowsHtml;
-
-  // Legend
-  const legends = [
-    { color: COLORS.harnatsu, label: '春夏フェア' },
-    { color: COLORS.gojo, label: '5と0のつく日' },
-    { color: COLORS.matsuri, label: 'クーポン祭' },
-    { color: COLORS.special, label: 'スペシャルWeek' },
-  ];
-  document.getElementById('legend').innerHTML = legends.map(l =>
-    `<div class="legend-item"><div class="legend-color" style="background:${l.color}"></div>${l.label}</div>`
-  ).join('');
 }
 
 // ============================================================
-// COUPON DEFINITIONS
+// ENROLLED COUPON DEFINITIONS (for calendar & detail panel)
 // ============================================================
-function getCoupons() {
+function getEnrolledCouponDefs() {
   const coupons = [];
 
-  // ---- 春夏フェア ----
-  const hnResStart = d(2026,3,31,10);
-  const hnResEnd = d(2026,4,20,9,59);
+  if (state.harnatsu15) coupons.push({
+    id:'harnatsu15', program:'harnatsu', name:'春夏フェア 15%OFF',
+    calcDisc: amt => Math.min(amt*0.15, 23000), minAmt:10000, feeRate:0.05,
+    stayRange:[d(2026,3,31), d(2027,2,28)], excluded:EX.harnatsu,
+    rankReq:null, weekendOnly:null
+  });
+  if (state.harnatsu10) coupons.push({
+    id:'harnatsu10', program:'harnatsu', name:'春夏フェア 10%OFF',
+    calcDisc: amt => Math.min(amt*0.10, 10000), minAmt:6000, feeRate:0.05,
+    stayRange:[d(2026,3,31), d(2027,2,28)], excluded:EX.harnatsu,
+    rankReq:null, weekendOnly:null
+  });
 
-  if (state.harnatsu15) {
-    coupons.push({
-      id: 'harnatsu15', name: '春夏フェア 15%OFF', color: COLORS.harnatsu,
-      check(rd, sd, amt) {
-        if (rd < hnResStart || rd > hnResEnd) return { ok: false, reason: '予約期間外（3/31 10:00〜4/20 09:59）' };
-        if (!isDateInRange(sd, d(2026,3,31), d(2027,2,28))) return { ok: false, reason: '宿泊対象期間外' };
-        if (isExcluded(sd, EX.harnatsu)) return { ok: false, reason: '除外日（5/1〜5/5）に該当' };
-        if (amt < 10000) return { ok: false, reason: `最低予約金額 ¥10,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: Math.min(amt * 0.15, 23000), fee: amt * 0.05, feeRate: 0.05 };
-      }
-    });
-  }
-
-  if (state.harnatsu10) {
-    coupons.push({
-      id: 'harnatsu10', name: '春夏フェア 10%OFF', color: COLORS.harnatsu,
-      check(rd, sd, amt) {
-        if (rd < hnResStart || rd > hnResEnd) return { ok: false, reason: '予約期間外（3/31 10:00〜4/20 09:59）' };
-        if (!isDateInRange(sd, d(2026,3,31), d(2027,2,28))) return { ok: false, reason: '宿泊対象期間外' };
-        if (isExcluded(sd, EX.harnatsu)) return { ok: false, reason: '除外日（5/1〜5/5）に該当' };
-        if (amt < 6000) return { ok: false, reason: `最低予約金額 ¥6,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: Math.min(amt * 0.10, 10000), fee: amt * 0.05, feeRate: 0.05 };
-      }
-    });
-  }
-
-  // ---- 5と0のつく日 ----
-  [4, 5, 6].forEach(mo => {
+  [4,5,6].forEach(mo => {
     if (!state[`gojo_${mo}`]) return;
-    const hrs = mo === 6 ? 72 : 48;
     coupons.push({
-      id: `gojo_${mo}`, name: `5と0のつく日 ${mo}月`, color: COLORS.gojo,
-      check(rd, sd, amt) {
-        if (!isInGojoWindow(rd, mo)) return { ok: false, reason: `予約期間外（${mo}月の5・10・15・20・25・30日 00:00から${hrs}時間以内の予約が対象）` };
-        if (isExcluded(sd, EX[`gojoMatsuri_${mo}`])) return { ok: false, reason: '除外日に該当' };
-        if (amt < 10000) return { ok: false, reason: `最低予約金額 ¥10,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: Math.min(amt * 0.10, 10000), fee: amt * 0.05, feeRate: 0.05 };
-      }
+      id:`gojo_${mo}`, program:'gojo', name:`5と0のつく日 ${mo}月`,
+      calcDisc: amt => Math.min(amt*0.10, 10000), minAmt:10000, feeRate:0.05,
+      stayRange:null, excluded:EX[`gojoMatsuri_${mo}`],
+      rankReq:null, weekendOnly:null
     });
   });
 
-  // ---- クーポン祭 ----
-  const matsuriWin = {
-    4: { s: d(2026,4,2), e: d(2026,5,1,23,59), label: '4/2〜5/1' },
-    5: { s: d(2026,5,1), e: d(2026,6,2,23,59), label: '5/1〜6/2' },
-    6: { s: d(2026,6,2), e: d(2026,7,2,23,59), label: '6/2〜7/2' },
-  };
-
-  [4, 5, 6].forEach(mo => {
-    const { s: ws, e: we, label: wl } = matsuriWin[mo];
+  const matsuriWin = { 4:[d(2026,4,2),d(2026,5,1,23,59)], 5:[d(2026,5,1),d(2026,6,2,23,59)], 6:[d(2026,6,2),d(2026,7,2,23,59)] };
+  [4,5,6].forEach(mo => {
     const ex = EX[`gojoMatsuri_${mo}`];
-
-    const addMatsuri = (key, name, checkFn) => {
-      if (!state[key]) return;
-      coupons.push({ id: key, name, color: COLORS.matsuri, check: checkFn });
-    };
-
-    // 全会員 ¥500
-    addMatsuri(`matsuri_${mo}_all`, `クーポン祭 ${mo}月 全会員 ¥500`,
-      (rd, sd, amt) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        return { ok: true, disc: 500, fee: amt * 0.05, feeRate: 0.05 };
-      });
-
-    // 平日 ¥1,000 D/P
-    addMatsuri(`matsuri_${mo}_hd1000`, `クーポン祭 ${mo}月 平日 D/P ¥1,000`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
-        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
-        if (amt < 8000) return { ok: false, reason: `最低予約金額 ¥8,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 1000, fee: amt * 0.05, feeRate: 0.05 };
-      });
-
-    // 平日 ¥2,500 D/P
-    addMatsuri(`matsuri_${mo}_hd2500`, `クーポン祭 ${mo}月 平日 D/P ¥2,500`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
-        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
-        if (amt < 20000) return { ok: false, reason: `最低予約金額 ¥20,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 2500, fee: amt * 0.05, feeRate: 0.05 };
-      });
-
-    // 平日 ¥4,000 Diamond
-    addMatsuri(`matsuri_${mo}_hd4000`, `クーポン祭 ${mo}月 平日 ダイヤモンド ¥4,000`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (isWeekend(sd)) return { ok: false, reason: '週末（金・土）宿泊のため平日クーポン対象外' };
-        if (rank !== 'diamond') return { ok: false, reason: 'ダイヤモンド会員限定' };
-        if (amt < 35000) return { ok: false, reason: `最低予約金額 ¥35,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 4000, fee: amt * 0.05, feeRate: 0.05 };
-      });
-
-    // 週末 ¥1,500 D/P
-    addMatsuri(`matsuri_${mo}_we1500`, `クーポン祭 ${mo}月 週末 D/P ¥1,500`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
-        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
-        if (amt < 12000) return { ok: false, reason: `最低予約金額 ¥12,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 1500, fee: amt * 0.03, feeRate: 0.03 };
-      });
-
-    // 週末 ¥3,000 D/P
-    addMatsuri(`matsuri_${mo}_we3000`, `クーポン祭 ${mo}月 週末 D/P ¥3,000`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
-        if (rank === 'other') return { ok: false, reason: 'ダイヤモンド/プラチナ会員限定' };
-        if (amt < 25000) return { ok: false, reason: `最低予約金額 ¥25,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 3000, fee: amt * 0.03, feeRate: 0.03 };
-      });
-
-    // 週末 ¥4,500 Diamond
-    addMatsuri(`matsuri_${mo}_we4500`, `クーポン祭 ${mo}月 週末 ダイヤモンド ¥4,500`,
-      (rd, sd, amt, rank) => {
-        if (rd < ws || rd > we) return { ok: false, reason: `予約期間外（${wl}）` };
-        if (isExcluded(sd, ex)) return { ok: false, reason: '除外日に該当' };
-        if (!isWeekend(sd)) return { ok: false, reason: '平日宿泊のため週末クーポン対象外' };
-        if (rank !== 'diamond') return { ok: false, reason: 'ダイヤモンド会員限定' };
-        if (amt < 40000) return { ok: false, reason: `最低予約金額 ¥40,000 未満（現在 ${yen(amt)}）` };
-        return { ok: true, disc: 4500, fee: amt * 0.03, feeRate: 0.03 };
-      });
+    if (state[`matsuri_${mo}_all`]) coupons.push({ id:`matsuri_${mo}_all`, program:'matsuri', name:`クーポン祭 ${mo}月 全会員¥500`, calcDisc:()=>500, minAmt:0, feeRate:0.05, stayRange:null, excluded:ex, rankReq:null, weekendOnly:null });
+    if (state[`matsuri_${mo}_hd1000`]) coupons.push({ id:`matsuri_${mo}_hd1000`, program:'matsuri', name:`クーポン祭 ${mo}月 平日 D/P ¥1,000`, calcDisc:()=>1000, minAmt:8000, feeRate:0.05, stayRange:null, excluded:ex, rankReq:'dp', weekendOnly:false });
+    if (state[`matsuri_${mo}_hd2500`]) coupons.push({ id:`matsuri_${mo}_hd2500`, program:'matsuri', name:`クーポン祭 ${mo}月 平日 D/P ¥2,500`, calcDisc:()=>2500, minAmt:20000, feeRate:0.05, stayRange:null, excluded:ex, rankReq:'dp', weekendOnly:false });
+    if (state[`matsuri_${mo}_hd4000`]) coupons.push({ id:`matsuri_${mo}_hd4000`, program:'matsuri', name:`クーポン祭 ${mo}月 平日 D ¥4,000`, calcDisc:()=>4000, minAmt:35000, feeRate:0.05, stayRange:null, excluded:ex, rankReq:'diamond', weekendOnly:false });
+    if (state[`matsuri_${mo}_we1500`]) coupons.push({ id:`matsuri_${mo}_we1500`, program:'matsuri', name:`クーポン祭 ${mo}月 週末 D/P ¥1,500`, calcDisc:()=>1500, minAmt:12000, feeRate:0.03, stayRange:null, excluded:ex, rankReq:'dp', weekendOnly:true });
+    if (state[`matsuri_${mo}_we3000`]) coupons.push({ id:`matsuri_${mo}_we3000`, program:'matsuri', name:`クーポン祭 ${mo}月 週末 D/P ¥3,000`, calcDisc:()=>3000, minAmt:25000, feeRate:0.03, stayRange:null, excluded:ex, rankReq:'dp', weekendOnly:true });
+    if (state[`matsuri_${mo}_we4500`]) coupons.push({ id:`matsuri_${mo}_we4500`, program:'matsuri', name:`クーポン祭 ${mo}月 週末 D ¥4,500`, calcDisc:()=>4500, minAmt:40000, feeRate:0.03, stayRange:null, excluded:ex, rankReq:'diamond', weekendOnly:true });
   });
 
-  // ---- スペシャルWeek ----
   const spCfg = {
-    4: { ws: d(2026,4,20,10), we: d(2026,5,1,9,59), ss: d(2026,4,20), se: d(2027,3,31), ex: EX.special_4,  wl: '4/20 10:00〜5/1 09:59' },
-    5: { ws: d(2026,5,20,10), we: d(2026,6,1,9,59),  ss: d(2026,5,20), se: d(2027,4,30), ex: EX.special_56, wl: '5/20 10:00〜6/1 09:59' },
-    6: { ws: d(2026,6,19,10), we: d(2026,6,30,23,59), ss: d(2026,6,19), se: d(2027,5,31), ex: EX.special_56, wl: '6/19 10:00〜6/30 23:59' },
+    4:{ stayRange:[d(2026,4,20),d(2027,3,31)], excluded:EX.special_4 },
+    5:{ stayRange:[d(2026,5,20),d(2027,4,30)], excluded:EX.special_56 },
+    6:{ stayRange:[d(2026,6,19),d(2027,5,31)], excluded:EX.special_56 },
   };
-
-  [4, 5, 6].forEach(mo => {
-    const c = spCfg[mo];
-
-    if (state[`special_${mo}_20`]) {
-      coupons.push({
-        id: `special_${mo}_20`, name: `スペシャルWeek ${mo}月 20%OFF`, color: COLORS.special,
-        check(rd, sd, amt) {
-          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
-          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
-          if (isExcluded(sd, c.ex)) return { ok: false, reason: '除外日（連休）に該当' };
-          if (amt < 30000) return { ok: false, reason: `最低予約金額 ¥30,000 未満（現在 ${yen(amt)}）` };
-          return { ok: true, disc: Math.min(amt * 0.20, 15000), fee: amt * 0.05, feeRate: 0.05 };
-        }
-      });
-    }
-
-    if (state[`special_${mo}_10rk`]) {
-      coupons.push({
-        id: `special_${mo}_10rk`, name: `スペシャルWeek ${mo}月 10%OFF（連休除外）`, color: '#2ecc71',
-        check(rd, sd, amt) {
-          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
-          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
-          if (isExcluded(sd, c.ex)) return { ok: false, reason: '除外日（連休）に該当' };
-          return { ok: true, disc: Math.min(amt * 0.10, 5000), fee: amt * 0.05, feeRate: 0.05 };
-        }
-      });
-    }
-
-    if (state[`special_${mo}_10nk`]) {
-      coupons.push({
-        id: `special_${mo}_10nk`, name: `スペシャルWeek ${mo}月 10%OFF（除外日なし）`, color: '#1abc9c',
-        check(rd, sd, amt) {
-          if (rd < c.ws || rd > c.we) return { ok: false, reason: `予約期間外（${c.wl}）` };
-          if (!isDateInRange(sd, c.ss, c.se)) return { ok: false, reason: '宿泊対象期間外' };
-          // No excluded dates
-          return { ok: true, disc: Math.min(amt * 0.10, 5000), fee: amt * 0.05, feeRate: 0.05 };
-        }
-      });
-    }
+  [4,5,6].forEach(mo => {
+    const cfg = spCfg[mo];
+    if (state[`special_${mo}_20`]) coupons.push({ id:`special_${mo}_20`, program:'special', name:`スペシャルWeek ${mo}月 20%OFF`, calcDisc:amt=>Math.min(amt*0.20,15000), minAmt:30000, feeRate:0.05, stayRange:cfg.stayRange, excluded:cfg.excluded, rankReq:null, weekendOnly:null });
+    if (state[`special_${mo}_10rk`]) coupons.push({ id:`special_${mo}_10rk`, program:'special', name:`スペシャルWeek ${mo}月 10%（連休除外）`, calcDisc:amt=>Math.min(amt*0.10,5000), minAmt:0, feeRate:0.05, stayRange:cfg.stayRange, excluded:cfg.excluded, rankReq:null, weekendOnly:null });
+    if (state[`special_${mo}_10nk`]) coupons.push({ id:`special_${mo}_10nk`, program:'special', name:`スペシャルWeek ${mo}月 10%（除外なし）`, calcDisc:amt=>Math.min(amt*0.10,5000), minAmt:0, feeRate:0.05, stayRange:cfg.stayRange, excluded:[], rankReq:null, weekendOnly:null });
   });
 
   return coupons;
 }
 
 // ============================================================
-// SIMULATION
+// COVERAGE CHECK FOR A STAY DATE
 // ============================================================
+function computeDayInfo(date) {
+  const allDefs = getEnrolledCouponDefs();
+  const covering = [];
+  const coveringProgs = new Set();
+  const notCoveringByProg = {};
+
+  allDefs.forEach(c => {
+    let reason = null;
+    if (c.stayRange && !isDateInRange(date, c.stayRange[0], c.stayRange[1])) reason = '宿泊対象期間外';
+    else if (c.excluded && isExcluded(date, c.excluded)) reason = '除外日';
+
+    if (!reason) {
+      covering.push(c);
+      coveringProgs.add(c.program);
+    } else {
+      if (!notCoveringByProg[c.program]) notCoveringByProg[c.program] = reason;
+    }
+  });
+
+  return {
+    covering,
+    coveringProgs,
+    programCount: coveringProgs.size,
+    notCoveringByProg,
+    anyEnrolled: allDefs.length > 0,
+    isGap: allDefs.length > 0 && covering.length === 0,
+  };
+}
+
+// ============================================================
+// BEST COUPON AT GIVEN AMOUNT / RANK / WEEKDAY
+// ============================================================
+function getBestCoupon(coupons, amount, rank, weekend) {
+  let best = null, bestDisc = -1;
+  coupons.forEach(c => {
+    if (c.minAmt > 0 && amount < c.minAmt) return;
+    if (c.rankReq === 'diamond' && rank !== 'diamond') return;
+    if (c.rankReq === 'dp' && rank === 'other') return;
+    if (c.weekendOnly === true && !weekend) return;
+    if (c.weekendOnly === false && weekend) return;
+    const disc = c.calcDisc(amount);
+    if (disc > bestDisc) { best = c; bestDisc = disc; }
+  });
+  return best ? { coupon: best, disc: bestDisc } : null;
+}
+
+// ============================================================
+// CALENDAR RENDERING
+// ============================================================
+let calYear = 2026;
+let calMonth = 4;
+let selectedDate = null;
+let detailRank = 'diamond';
+
+// ── Max stay date across all enrolled coupons
+function getMaxStayDate() {
+  const defs = getEnrolledCouponDefs();
+  if (!defs.length) return d(2026, 6, 30);
+  let maxDate = d(2026, 6, 30);
+  defs.forEach(c => {
+    // Coupons with explicit stay range: use that end date
+    // Coupons without (gojo/matsuri): fall back to the max of explicit ones
+    if (c.stayRange && c.stayRange[1] > maxDate) maxDate = c.stayRange[1];
+  });
+  // If only unbounded coupons enrolled, show up to Mar 2027 as practical default
+  if (maxDate <= d(2026, 6, 30)) maxDate = d(2027, 3, 31);
+  return maxDate;
+}
+
+// ── List of {year, month} to display as tabs
+function getCalendarMonths() {
+  const maxDate = getMaxStayDate();
+  const months = [];
+  let y = 2026, m = 4;
+  while (new Date(y, m - 1, 1) <= new Date(maxDate.getFullYear(), maxDate.getMonth(), 1)) {
+    months.push({ year: y, month: m });
+    m++;
+    if (m > 12) { m = 1; y++; }
+  }
+  return months;
+}
+
+function renderCalendarTabs() {
+  const months = getCalendarMonths();
+  const labels = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  let html = '';
+  let prevYear = null;
+  months.forEach(({ year, month }) => {
+    if (year !== prevYear && prevYear !== null) {
+      html += `<span style="font-size:11px;color:#aaa;align-self:center;padding:0 4px">${year}年▶</span>`;
+    }
+    prevYear = year;
+    const label = year === 2026 ? labels[month - 1] : labels[month - 1];
+    const active = year === calYear && month === calMonth;
+    html += `<button class="cal-tab${active ? ' active' : ''}" onclick="setCalMonth(${year},${month})">${label}</button>`;
+  });
+  document.getElementById('calTabs').innerHTML = html;
+}
+
+function setCalMonth(year, month) {
+  calYear = year;
+  calMonth = month;
+  renderCalendarTabs();
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const year = calYear;
+  const month = calMonth;
+  const firstDow = new Date(year, month - 1, 1).getDay();
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const DOW = ['日','月','火','水','木','金','土'];
+
+  let html = '<table class="cal-table"><thead><tr>';
+  DOW.forEach((d, i) => {
+    const cls = i === 0 ? 'we-h' : i === 6 ? 'sa-h' : '';
+    html += `<th class="${cls}">${d}</th>`;
+  });
+  html += '</tr></thead><tbody><tr>';
+
+  let col = 0;
+  for (let i = 0; i < firstDow; i++) { html += '<td class="cal-empty"></td>'; col++; }
+
+  let gapCount = 0;
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month - 1, day);
+    const info = computeDayInfo(date);
+    const dow = date.getDay();
+    const we = dow === 5 || dow === 6;
+    const sa = dow === 6;
+    const isSelected = selectedDate && sameDay(date, selectedDate);
+
+    // Determine coverage class
+    let coverClass = 'no-enrollment';
+    if (info.anyEnrolled) {
+      if (info.isGap) { coverClass = 'gap'; gapCount++; }
+      else if (info.programCount === 1) coverClass = 'covered-1';
+      else if (info.programCount === 2) coverClass = 'covered-2';
+      else if (info.programCount === 3) coverClass = 'covered-3';
+      else coverClass = 'covered-4';
+    }
+
+    // Dots
+    const dots = Array.from(info.coveringProgs).map(p =>
+      `<span class="dot" style="background:${COLORS[p]}"></span>`
+    ).join('');
+
+    const gapMark = info.isGap ? '<span class="gap-mark">空</span>' : '';
+
+    html += `<td class="cal-day ${coverClass}${we ? (sa ? ' sa' : ' we') : ''}${isSelected ? ' selected' : ''}"
+      onclick="handleDateClick(${year},${month},${day})"
+      title="${year}/${month}/${day} — ${info.anyEnrolled ? (info.isGap ? '⚠ クーポン空白日' : info.programCount + 'プログラム適用可') : '参加クーポン未設定'}">
+      <div class="day-num">${day}</div>
+      <div class="day-dots">${dots}${gapMark}</div>
+    </td>`;
+
+    col++;
+    if (col % 7 === 0 && day < daysInMonth) html += '</tr><tr>';
+  }
+  while (col % 7 !== 0) { html += '<td class="cal-empty"></td>'; col++; }
+  html += '</tr></tbody></table>';
+
+  document.getElementById('calGrid').innerHTML = html;
+
+  // Gap summary
+  let summaryHtml = '';
+  if (!getEnrolledCouponDefs().length) {
+    summaryHtml = '<div class="gap-summary neutral">👈 左パネルから参加クーポンを選択すると、カバー状況が表示されます</div>';
+  } else if (gapCount > 0) {
+    summaryHtml = `<div class="gap-summary warn">⚠ ${month}月のクーポン空白期間（ギャップ）: <strong>${gapCount}日</strong> / ${daysInMonth}日中</div>`;
+  } else {
+    summaryHtml = `<div class="gap-summary ok">✅ ${month}月は全${daysInMonth}日クーポンカバー済みです</div>`;
+  }
+  document.getElementById('gapSummary').innerHTML = summaryHtml;
+}
+
+// ============================================================
+// DATE CLICK → DETAIL PANEL
+// ============================================================
+function handleDateClick(y, m, day) {
+  selectedDate = new Date(y, m - 1, day);
+  renderCalendar();
+  renderDetailPanel(selectedDate);
+  const detailEl = document.getElementById('detailSection');
+  detailEl.style.display = 'block';
+  setTimeout(() => detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function renderDetailPanel(date) {
+  const DOW = ['日','月','火','水','木','金','土'];
+  const info = computeDayInfo(date);
+  const we = isWeekend(date);
+  const dowStr = DOW[date.getDay()];
+
+  document.getElementById('detailDateLabel').textContent =
+    `— ${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日（${dowStr}）`;
+
+  let html = '';
+
+  // ── Date bar
+  html += `<div class="detail-date-bar">
+    <span class="detail-date">${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日（${dowStr}）</span>
+    <span class="we-badge ${we ? 'weekend' : 'weekday'}">${we ? '週末（金・土）' : '平日（日〜木）'}</span>
+    ${info.isGap ? '<span style="background:#ffebee;border:1px solid #ef9a9a;border-radius:5px;padding:3px 10px;color:#c62828;font-size:11px">⚠ クーポン空白日（ギャップ）</span>' : ''}
+  </div>`;
+
+  if (info.isGap) {
+    html += `<div class="gap-alert">この日を宿泊対象日とする場合、現在参加している楽天企画型クーポンはいずれも適用されません。</div>`;
+  }
+
+  // ── Coverage by program
+  const programs = [
+    { id:'harnatsu', name:'春夏フェア' },
+    { id:'gojo', name:'5と0のつく日' },
+    { id:'matsuri', name:'クーポン祭' },
+    { id:'special', name:'スペシャルWeek' },
+  ];
+  const allDefs = getEnrolledCouponDefs();
+  const enrolledPrograms = programs.filter(p => allDefs.some(c => c.program === p.id));
+
+  if (enrolledPrograms.length === 0) {
+    html += '<p style="color:#888;font-size:12px">左パネルから参加クーポンを選択してください。</p>';
+    document.getElementById('detailContent').innerHTML = html;
+    return;
+  }
+
+  html += '<div class="coverage-grid">';
+  enrolledPrograms.forEach(prog => {
+    const enrolled = allDefs.filter(c => c.program === prog.id);
+    const covering = info.covering.filter(c => c.program === prog.id);
+    const ok = covering.length > 0;
+    const reason = !ok ? (info.notCoveringByProg[prog.id] || '対象外') : '';
+
+    const chips = covering.map(c =>
+      `<span class="coupon-chip" style="border-color:${COLORS[prog.id]};color:${COLORS[prog.id]}">${c.name.replace(prog.name + ' ','').replace(`クーポン祭 ${c.id.split('_')[1]}月 `, '').replace(`スペシャルWeek ${c.id.split('_')[1]}月 `, '')}</span>`
+    ).join('');
+
+    html += `<div class="cov-card ${ok ? 'ok' : 'ng'}" style="${ok ? 'border-left-color:'+COLORS[prog.id] : ''}">
+      <div class="cov-card-head">
+        <span class="prog-dot" style="background:${COLORS[prog.id]}"></span>
+        ${prog.name}
+        <span class="cov-status ${ok ? 'ok' : 'ng'}">${ok ? '✓ 適用可' : '✗ 対象外'}</span>
+      </div>
+      ${ok ? `<div>${chips}</div>` : `<div class="cov-reason">${reason}</div>`}
+    </div>`;
+  });
+  html += '</div>';
+
+  // ── Amount threshold table
+  if (info.covering.length > 0) {
+    html += `<div class="amount-bar">
+      <div class="amount-bar-head">
+        <strong>💴 宿泊金額別 最優先クーポン</strong>
+        <select class="rank-sel" id="detailRankSel" onchange="detailRank=this.value;renderDetailPanel(selectedDate)">
+          <option value="diamond"${detailRank==='diamond'?' selected':''}>ダイヤモンド会員</option>
+          <option value="platinum"${detailRank==='platinum'?' selected':''}>プラチナ会員</option>
+          <option value="other"${detailRank==='other'?' selected':''}>その他会員</option>
+        </select>
+        <span class="we-badge ${we?'weekend':'weekday'}" style="font-size:10px">${we?'週末宿泊':'平日宿泊'}</span>
+      </div>
+      ${buildAmountTable(info.covering, detailRank, we)}
+    </div>`;
+  } else {
+    html += `<div class="amount-bar" style="color:#aaa;font-size:12px;text-align:center;padding:12px">
+      この日は参加中のクーポンがいずれも適用されないため、金額シミュレーションは表示されません。
+    </div>`;
+  }
+
+  document.getElementById('detailContent').innerHTML = html;
+}
+
+function buildAmountTable(coupons, rank, we) {
+  // Representative amounts
+  const amounts = [5000, 10000, 15000, 20000, 30000, 40000, 50000, 80000];
+  // Find max discount across all amounts for bar scaling
+  let maxDisc = 0;
+  amounts.forEach(a => {
+    const r = getBestCoupon(coupons, a, rank, we);
+    if (r && r.disc > maxDisc) maxDisc = r.disc;
+  });
+
+  // Build rows, only show when best coupon changes OR first row
+  const rows = [];
+  let lastId = null;
+  amounts.forEach(amt => {
+    const r = getBestCoupon(coupons, amt, rank, we);
+    const curId = r ? r.coupon.id : 'none';
+    if (curId !== lastId || rows.length === 0) {
+      rows.push({ amt, r });
+      lastId = curId;
+    } else {
+      // Update discount for same coupon (amount changed)
+      rows[rows.length - 1].upTo = amt;
+      rows.push({ amt, r });
+      lastId = curId;
+    }
+  });
+
+  // Actually, always show all rows for clarity
+  let html = `<table class="amt-table">
+    <thead><tr>
+      <th>宿泊金額</th>
+      <th>最優先クーポン</th>
+      <th>割引額</th>
+      <th>施設手数料</th>
+      <th>ユーザー販売金額</th>
+      <th>施設受取概算</th>
+    </tr></thead>
+    <tbody>`;
+
+  let prevId = null;
+  amounts.forEach(amt => {
+    const r = getBestCoupon(coupons, amt, rank, we);
+    const changed = r ? r.coupon.id !== prevId : prevId !== null;
+    prevId = r ? r.coupon.id : null;
+
+    const barW = r && maxDisc > 0 ? Math.round((r.disc / maxDisc) * 80) : 0;
+    const rowBg = r ? hexAlpha(COLORS[r.coupon.program], 0.08) : '';
+    const border = changed && r ? `border-top:2px solid ${COLORS[r.coupon.program]}` : '';
+    const isBest = r && r.disc === maxDisc;
+
+    html += `<tr style="background:${rowBg};${border}">
+      <td><strong>${yen(amt)}</strong></td>
+      <td>${r
+        ? `<span style="color:${COLORS[r.coupon.program]}">${r.coupon.name}</span>${isBest ? '<span class="best-badge" style="background:'+COLORS[r.coupon.program]+'22;color:'+COLORS[r.coupon.program]+'">最大</span>' : ''}`
+        : '<span class="no-coupon">× 該当なし</span>'
+      }</td>
+      <td>${r ? `<span class="disc-num">▲ ${yen(r.disc)}</span>
+        <div class="disc-bar-wrap"><div class="disc-bar" style="width:${barW}px;background:${COLORS[r.coupon.program]}50"></div></div>` : '-'}</td>
+      <td>${r ? `<span class="fee-num">▲ ${yen(amt * r.coupon.feeRate)}</span><br><span style="font-size:10px;color:#888">${pct(r.coupon.feeRate)}</span>` : '-'}</td>
+      <td>${r ? `<span style="font-weight:bold;color:#1a5ea8">${yen(amt - r.disc)}</span>` : `<span style="color:#888">${yen(amt)}</span>`}</td>
+      <td>${r ? `<span class="net-num">${yen(amt - r.disc - amt * r.coupon.feeRate)}</span>` : `<span style="color:#888">${yen(amt)}</span>`}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  html += `<p class="note-txt" style="margin-top:6px">※ 上記は同一金額で最も割引額が大きいクーポンを優先表示しています。同一予約で複数クーポンが表示される場合、通常はより割引の大きいものが優先適用されます。</p>`;
+  return html;
+}
+
+function hexAlpha(hex, alpha) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ============================================================
+// SIMULATION (same logic as before)
+// ============================================================
+function getCoupons() {
+  const coupons = [];
+  const hnRS = d(2026,3,31,10), hnRE = d(2026,4,20,9,59);
+
+  if (state.harnatsu15) coupons.push({ id:'harnatsu15', name:'春夏フェア 15%OFF', color:COLORS.harnatsu, check(rd,sd,amt) {
+    if (rd<hnRS||rd>hnRE) return {ok:false,reason:'予約期間外（3/31 10:00〜4/20 09:59）'};
+    if (!isDateInRange(sd,d(2026,3,31),d(2027,2,28))) return {ok:false,reason:'宿泊対象期間外'};
+    if (isExcluded(sd,EX.harnatsu)) return {ok:false,reason:'除外日（5/1〜5/5）'};
+    if (amt<10000) return {ok:false,reason:`最低¥10,000未満（現在${yen(amt)}）`};
+    return {ok:true,disc:Math.min(amt*0.15,23000),fee:amt*0.05,feeRate:0.05};
+  }});
+  if (state.harnatsu10) coupons.push({ id:'harnatsu10', name:'春夏フェア 10%OFF', color:COLORS.harnatsu, check(rd,sd,amt) {
+    if (rd<hnRS||rd>hnRE) return {ok:false,reason:'予約期間外（3/31 10:00〜4/20 09:59）'};
+    if (!isDateInRange(sd,d(2026,3,31),d(2027,2,28))) return {ok:false,reason:'宿泊対象期間外'};
+    if (isExcluded(sd,EX.harnatsu)) return {ok:false,reason:'除外日（5/1〜5/5）'};
+    if (amt<6000) return {ok:false,reason:`最低¥6,000未満（現在${yen(amt)}）`};
+    return {ok:true,disc:Math.min(amt*0.10,10000),fee:amt*0.05,feeRate:0.05};
+  }});
+
+  [4,5,6].forEach(mo => {
+    if (!state[`gojo_${mo}`]) return;
+    const hrs = mo===6?72:48;
+    coupons.push({ id:`gojo_${mo}`, name:`5と0のつく日 ${mo}月`, color:COLORS.gojo, check(rd,sd,amt) {
+      if (!isInGojoWindow(rd,mo)) return {ok:false,reason:`予約期間外（${mo}月の5・10・15・20・25・30日から${hrs}h以内）`};
+      if (isExcluded(sd,EX[`gojoMatsuri_${mo}`])) return {ok:false,reason:'除外日に該当'};
+      if (amt<10000) return {ok:false,reason:`最低¥10,000未満（現在${yen(amt)}）`};
+      return {ok:true,disc:Math.min(amt*0.10,10000),fee:amt*0.05,feeRate:0.05};
+    }});
+  });
+
+  const mWin = { 4:[d(2026,4,2),d(2026,5,1,23,59),'4/2〜5/1'], 5:[d(2026,5,1),d(2026,6,2,23,59),'5/1〜6/2'], 6:[d(2026,6,2),d(2026,7,2,23,59),'6/2〜7/2'] };
+  [4,5,6].forEach(mo => {
+    const [ws,we,wl] = mWin[mo];
+    const ex = EX[`gojoMatsuri_${mo}`];
+    const add = (key,name,fn) => { if(state[key]) coupons.push({id:key,name,color:COLORS.matsuri,check:fn}); };
+    add(`matsuri_${mo}_all`,`クーポン祭 ${mo}月 全会員¥500`,(rd,sd,amt)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      return {ok:true,disc:500,fee:amt*0.05,feeRate:0.05};
+    });
+    add(`matsuri_${mo}_hd1000`,`クーポン祭 ${mo}月 平日D/P¥1,000`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(isWeekend(sd)) return {ok:false,reason:'週末宿泊は対象外（平日クーポン）'};
+      if(rank==='other') return {ok:false,reason:'D/P会員限定'};
+      if(amt<8000) return {ok:false,reason:`最低¥8,000未満`};
+      return {ok:true,disc:1000,fee:amt*0.05,feeRate:0.05};
+    });
+    add(`matsuri_${mo}_hd2500`,`クーポン祭 ${mo}月 平日D/P¥2,500`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(isWeekend(sd)) return {ok:false,reason:'週末宿泊は対象外（平日クーポン）'};
+      if(rank==='other') return {ok:false,reason:'D/P会員限定'};
+      if(amt<20000) return {ok:false,reason:`最低¥20,000未満`};
+      return {ok:true,disc:2500,fee:amt*0.05,feeRate:0.05};
+    });
+    add(`matsuri_${mo}_hd4000`,`クーポン祭 ${mo}月 平日D¥4,000`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(isWeekend(sd)) return {ok:false,reason:'週末宿泊は対象外（平日クーポン）'};
+      if(rank!=='diamond') return {ok:false,reason:'ダイヤモンド限定'};
+      if(amt<35000) return {ok:false,reason:`最低¥35,000未満`};
+      return {ok:true,disc:4000,fee:amt*0.05,feeRate:0.05};
+    });
+    add(`matsuri_${mo}_we1500`,`クーポン祭 ${mo}月 週末D/P¥1,500`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(!isWeekend(sd)) return {ok:false,reason:'平日宿泊は対象外（週末クーポン）'};
+      if(rank==='other') return {ok:false,reason:'D/P会員限定'};
+      if(amt<12000) return {ok:false,reason:`最低¥12,000未満`};
+      return {ok:true,disc:1500,fee:amt*0.03,feeRate:0.03};
+    });
+    add(`matsuri_${mo}_we3000`,`クーポン祭 ${mo}月 週末D/P¥3,000`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(!isWeekend(sd)) return {ok:false,reason:'平日宿泊は対象外（週末クーポン）'};
+      if(rank==='other') return {ok:false,reason:'D/P会員限定'};
+      if(amt<25000) return {ok:false,reason:`最低¥25,000未満`};
+      return {ok:true,disc:3000,fee:amt*0.03,feeRate:0.03};
+    });
+    add(`matsuri_${mo}_we4500`,`クーポン祭 ${mo}月 週末D¥4,500`,(rd,sd,amt,rank)=>{
+      if(rd<ws||rd>we) return {ok:false,reason:`予約期間外（${wl}）`};
+      if(isExcluded(sd,ex)) return {ok:false,reason:'除外日'};
+      if(!isWeekend(sd)) return {ok:false,reason:'平日宿泊は対象外（週末クーポン）'};
+      if(rank!=='diamond') return {ok:false,reason:'ダイヤモンド限定'};
+      if(amt<40000) return {ok:false,reason:`最低¥40,000未満`};
+      return {ok:true,disc:4500,fee:amt*0.03,feeRate:0.03};
+    });
+  });
+
+  const spCfg2 = {
+    4:{ws:d(2026,4,20,10),we2:d(2026,5,1,9,59),ss:d(2026,4,20),se:d(2027,3,31),ex:EX.special_4,wl:'4/20 10:00〜5/1 09:59'},
+    5:{ws:d(2026,5,20,10),we2:d(2026,6,1,9,59), ss:d(2026,5,20),se:d(2027,4,30),ex:EX.special_56,wl:'5/20 10:00〜6/1 09:59'},
+    6:{ws:d(2026,6,19,10),we2:d(2026,6,30,23,59),ss:d(2026,6,19),se:d(2027,5,31),ex:EX.special_56,wl:'6/19 10:00〜6/30 23:59'},
+  };
+  [4,5,6].forEach(mo => {
+    const c = spCfg2[mo];
+    if(state[`special_${mo}_20`]) coupons.push({id:`special_${mo}_20`,name:`スペシャルWeek ${mo}月 20%OFF`,color:COLORS.special,check(rd,sd,amt){
+      if(rd<c.ws||rd>c.we2) return {ok:false,reason:`予約期間外（${c.wl}）`};
+      if(!isDateInRange(sd,c.ss,c.se)) return {ok:false,reason:'宿泊対象期間外'};
+      if(isExcluded(sd,c.ex)) return {ok:false,reason:'除外日（連休）'};
+      if(amt<30000) return {ok:false,reason:`最低¥30,000未満（現在${yen(amt)}）`};
+      return {ok:true,disc:Math.min(amt*0.20,15000),fee:amt*0.05,feeRate:0.05};
+    }});
+    if(state[`special_${mo}_10rk`]) coupons.push({id:`special_${mo}_10rk`,name:`スペシャルWeek ${mo}月 10%（連休除外）`,color:'#2ecc71',check(rd,sd,amt){
+      if(rd<c.ws||rd>c.we2) return {ok:false,reason:`予約期間外（${c.wl}）`};
+      if(!isDateInRange(sd,c.ss,c.se)) return {ok:false,reason:'宿泊対象期間外'};
+      if(isExcluded(sd,c.ex)) return {ok:false,reason:'除外日（連休）'};
+      return {ok:true,disc:Math.min(amt*0.10,5000),fee:amt*0.05,feeRate:0.05};
+    }});
+    if(state[`special_${mo}_10nk`]) coupons.push({id:`special_${mo}_10nk`,name:`スペシャルWeek ${mo}月 10%（除外なし）`,color:'#1abc9c',check(rd,sd,amt){
+      if(rd<c.ws||rd>c.we2) return {ok:false,reason:`予約期間外（${c.wl}）`};
+      if(!isDateInRange(sd,c.ss,c.se)) return {ok:false,reason:'宿泊対象期間外'};
+      return {ok:true,disc:Math.min(amt*0.10,5000),fee:amt*0.05,feeRate:0.05};
+    }});
+  });
+  return coupons;
+}
+
 function simulate() {
   const rdVal = document.getElementById('reservationDate').value;
   const sdVal = document.getElementById('stayDate').value;
@@ -844,77 +985,58 @@ function simulate() {
   }
 
   const rd = new Date(rdVal);
-  const sdParts = sdVal.split('-').map(Number);
-  const sd = new Date(sdParts[0], sdParts[1] - 1, sdParts[2]);
-
+  const [sy,sm,sday] = sdVal.split('-').map(Number);
+  const sd = new Date(sy, sm - 1, sday);
   const DOW = ['日','月','火','水','木','金','土'];
   const sdDow = DOW[sd.getDay()];
 
   const coupons = getCoupons();
-
-  if (coupons.length === 0) {
-    document.getElementById('results').innerHTML =
-      '<div class="no-result">参加設定されているクーポンプログラムがありません。<br>左側のパネルから参加するクーポンを選択してください。</div>';
+  if (!coupons.length) {
+    document.getElementById('results').innerHTML = '<div class="no-result">参加クーポンが未設定です。左パネルから選択してください。</div>';
     return;
   }
 
-  const results = coupons.map(c => ({ coupon: c, result: c.check(rd, sd, amt, rank) }));
-  const applied = results.filter(r => r.result.ok);
+  const results = coupons.map(c => ({ coupon:c, result:c.check(rd, sd, amt, rank) }));
+  const applied = results.filter(r => r.result.ok).sort((a,b) => b.result.disc - a.result.disc);
   const notApplied = results.filter(r => !r.result.ok);
 
-  // Info bar
-  let html = `<div style="background:#f0f4fa;border:1px solid #ccd;border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#445;display:flex;gap:20px;flex-wrap:wrap">
-    <span>📅 予約日時：<strong>${rdVal.replace('T',' ')}</strong></span>
+  let html = `<div style="background:#f0f4fa;border:1px solid #ccd;border-radius:6px;padding:7px 12px;margin-bottom:10px;font-size:12px;display:flex;gap:16px;flex-wrap:wrap">
+    <span>📅 予約：<strong>${rdVal.replace('T',' ')}</strong></span>
     <span>🏨 チェックイン：<strong>${sdVal}（${sdDow}）${isWeekend(sd)?'【週末】':'【平日】'}</strong></span>
     <span>💴 宿泊金額：<strong>${yen(amt)}</strong></span>
-    <span>👤 会員ランク：<strong>${rank === 'diamond' ? 'ダイヤモンド' : rank === 'platinum' ? 'プラチナ' : 'その他'}</strong></span>
+    <span>👤 ランク：<strong>${rank==='diamond'?'ダイヤモンド':rank==='platinum'?'プラチナ':'その他'}</strong></span>
   </div>`;
 
-  if (applied.length === 0) {
-    html += '<div class="no-result">現在の条件では適用できるクーポンがありません。<br>予約日時・チェックイン日・宿泊金額・会員ランクを確認してください。</div>';
+  if (!applied.length) {
+    html += '<div class="no-result">現在の条件で適用できるクーポンがありません。</div>';
   } else {
-    // Sort by discount desc
-    applied.sort((a, b) => b.result.disc - a.result.disc);
     const best = applied[0];
-
-    html += `<div class="result-section-title">✅ 適用可能なクーポン（${applied.length}件）</div>`;
-    html += '<div class="result-cards">';
+    html += `<div class="res-section-title">✅ 適用可能（${applied.length}件）</div><div class="res-cards">`;
     applied.forEach(({ coupon, result }) => {
       const isBest = coupon.id === best.coupon.id;
-      html += `<div class="result-card ok" style="${isBest ? 'box-shadow:0 0 0 2px ' + coupon.color + ';' : ''}">
-        <div class="rc-title" style="color:${coupon.color}">${isBest ? '★ ' : ''}${coupon.name}</div>
-        <div class="rc-row"><span>割引額</span><span class="num disc-num">▲ ${yen(result.disc)}</span></div>
-        <div class="rc-row"><span>販促システム利用料（手数料${pct(result.feeRate)}）</span><span class="num fee-num">▲ ${yen(result.fee)}</span></div>
-        <div class="rc-row" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span>施設実質受取額</span><span class="num">${yen(amt - result.disc - result.fee)}</span></div>
+      html += `<div class="res-card ok" style="${isBest?'box-shadow:0 0 0 2px '+coupon.color:''}">
+        <div class="rc-title" style="color:${coupon.color}">${isBest?'★ ':''}${coupon.name}</div>
+        <div class="rc-row"><span>割引額</span><span class="disc-num">▲ ${yen(result.disc)}</span></div>
+        <div class="rc-row"><span>手数料（${pct(result.feeRate)}）</span><span class="fee-num">▲ ${yen(result.fee)}</span></div>
+        <div class="rc-row" style="border-top:1px solid #ddd;margin-top:3px;padding-top:3px"><span>施設受取概算</span><span style="font-weight:bold">${yen(amt-result.disc-result.fee)}</span></div>
       </div>`;
     });
     html += '</div>';
-
-    // Summary for best coupon
-    html += `<div class="summary-box">
-      <h3>最大割引クーポン適用時の施設負担まとめ</h3>
-      <div class="sum-row"><span class="label">適用クーポン</span><span class="value" style="color:${best.coupon.color}">${best.coupon.name}</span></div>
-      <div class="sum-row"><span class="label">予約金額（割引前）</span><span class="value">${yen(amt)}</span></div>
-      <div class="sum-row"><span class="label">割引額（施設負担）</span><span class="value disc-num">▲ ${yen(best.result.disc)}</span></div>
-      <div class="sum-row"><span class="label">お客様お支払額</span><span class="value">${yen(amt - best.result.disc)}</span></div>
-      <div class="sum-row"><span class="label">販促システム利用料（${pct(best.result.feeRate)}）</span><span class="value fee-num">▲ ${yen(best.result.fee)}</span></div>
-      <div class="sum-row total">
-        <span class="label">施設の実質受取額</span>
-        <span class="value">${yen(amt - best.result.disc - best.result.fee)}</span>
-      </div>
+    html += `<div class="summary-box"><h3>最大割引クーポン適用時まとめ</h3>
+      <div class="sum-row"><span>適用クーポン</span><span style="color:${best.coupon.color};font-weight:bold">${best.coupon.name}</span></div>
+      <div class="sum-row"><span>予約金額（割引前）</span><span>${yen(amt)}</span></div>
+      <div class="sum-row"><span>割引額（施設負担）</span><span class="disc-num">▲ ${yen(best.result.disc)}</span></div>
+      <div class="sum-row"><span>お客様お支払額</span><span>${yen(amt-best.result.disc)}</span></div>
+      <div class="sum-row"><span>販促システム利用料（${pct(best.result.feeRate)}）</span><span class="fee-num">▲ ${yen(best.result.fee)}</span></div>
+      <div class="sum-row total"><span>施設の実質受取額</span><span>${yen(amt-best.result.disc-best.result.fee)}</span></div>
     </div>`;
-
-    html += '<p class="note">※ 通常、同一予約に複数のクーポンは適用されません。上記は最大割引のクーポンを基準に計算しています。</p>';
+    html += '<p class="note-txt">※ 同一予約に複数クーポンは通常適用されません。上記は最大割引クーポンを基準に計算しています。</p>';
   }
 
-  if (notApplied.length > 0) {
-    html += `<details style="margin-top:10px"><summary>▼ 適用不可のクーポン（${notApplied.length}件）</summary>
-      <div class="result-cards" style="margin-top:8px">`;
+  if (notApplied.length) {
+    html += `<details style="margin-top:8px"><summary>▼ 適用不可のクーポン（${notApplied.length}件）</summary><div class="res-cards" style="margin-top:8px">`;
     notApplied.forEach(({ coupon, result }) => {
-      html += `<div class="result-card ng">
-        <div class="rc-title">${coupon.name}</div>
-        <div class="rc-reason">✗ ${result.reason}</div>
-      </div>`;
+      html += `<div class="res-card ng"><div class="rc-title">${coupon.name}</div><div class="rc-reason">✗ ${result.reason}</div></div>`;
     });
     html += '</div></details>';
   }
@@ -926,13 +1048,12 @@ function simulate() {
 // INIT
 // ============================================================
 function init() {
-  // Build dynamic panel content
-  [4, 5, 6].forEach(mo => {
+  [4,5,6].forEach(mo => {
     document.getElementById(`matsuri-panel-${mo}`).innerHTML = buildMatsuriPanel(mo);
     document.getElementById(`special-panel-${mo}`).innerHTML = buildSpecialPanel(mo);
   });
-
-  buildGantt();
+  renderCalendarTabs();
+  renderCalendar();
   updateBadges();
 }
 
